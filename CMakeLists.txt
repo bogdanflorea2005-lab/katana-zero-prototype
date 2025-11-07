@@ -22,7 +22,7 @@ include(cmake/CopyHelper.cmake)
 ###############################################################################
 
 # external dependencies with FetchContent
-# include(FetchContent)
+include(FetchContent)
 #
 # set(FETCHCONTENT_QUIET OFF)
 # set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
@@ -47,9 +47,34 @@ include(cmake/CopyHelper.cmake)
 
 ###############################################################################
 
+#set(SFML_DIR "C:/SFML-3.0.2/lib/cmake/SFML")
+#
+#find_package(SFML 3 REQUIRED COMPONENTS Graphics Window Audio)
+
+include(FetchContent)
+FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 3.0.2
+        GIT_SHALLOW ON
+        EXCLUDE_FROM_ALL
+        SYSTEM)
+FetchContent_MakeAvailable(SFML)
+
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
+        Entity.cpp
+        Entity.h
+        Player.cpp
+        Player.h
+        Enemy.cpp
+        Enemy.h
+)
+
+target_link_libraries(${MAIN_EXECUTABLE_NAME}
+        SFML::Graphics
+        SFML::Window
+        SFML::Audio
 )
 
 # NOTE: Add all defined targets (e.g. executables, libraries, etc. )
