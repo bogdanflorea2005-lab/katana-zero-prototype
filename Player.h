@@ -12,12 +12,7 @@ class Player: public Entity {
 private:
 
 public:
-    Player(const std::string &filePath, float x, float y) {
-        texture.loadFromFile(filePath);
-        texSize=texture.getSize();
-        position.x=x;
-        position.y=y;
-    }
+    Player(const std::string &filePath, float x, float y);
 
     bool getDead() {
         return isDead;

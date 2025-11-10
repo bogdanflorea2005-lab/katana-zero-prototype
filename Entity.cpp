@@ -26,7 +26,7 @@ void Entity::jump() {
     if (isGrounded==true) {
         isGrounded = false;
         velocity.y=0;
-        velocity.y -=15;
+        velocity.y -=10;
         position.y+=velocity.y;
     }
 }

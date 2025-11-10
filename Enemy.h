@@ -14,12 +14,7 @@ class Enemy: public Entity {
 private:
 
 public:
-    Enemy(const std::string &filePath, float x, float y) {
-        texture.loadFromFile(filePath);
-        texSize=texture.getSize();
-        position.x=x;
-        position.y=y;
-    }
+    Enemy(const std::string &filePath, float x, float y);
 
     void drawEnemy(sf::RenderWindow &window);
 

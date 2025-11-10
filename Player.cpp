@@ -4,6 +4,13 @@
 
 #include "Player.h"
 
+Player::Player(const std::string &filePath, float x, float y) {
+    texture.loadFromFile(filePath);
+    texSize=texture.getSize();
+    position.x=x;
+    position.y=y;
+}
+
 void Player::drawPlayer(sf::RenderWindow &window) {
     sf::Sprite sprite(texture);
     sprite.setOrigin(sf::Vector2f(texSize.x/2,texSize.y/2));

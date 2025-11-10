@@ -30,7 +30,7 @@ protected:
 
     void stopMovement();
 
-    void attack();
+    virtual void attack();
 
     bool isTouchingLeft(Tile t);
     bool isTouchingRight(Tile t);

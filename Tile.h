@@ -11,24 +11,11 @@ class Tile: public Entity{
 private:
 
 public:
-    Tile(const std::string filePath, float x, float y) {
-        texture.loadFromFile(filePath);
-        texSize=texture.getSize();
-        position.x = x;
-        position.y = y;
-    }
+    Tile(const std::string filePath, float x, float y);
 
-    Tile(const Tile& t) {
-        position = t.position;
-        texture = t.texture;
-        texSize = t.texSize;
-    }
+    Tile(const Tile& t);
 
-    Tile(const Tile& t, float x, float y) {
-        position=sf::Vector2f(x, y);
-        texture=t.texture;
-        texSize=texture.getSize();
-    }
+    Tile(const Tile& t, float x, float y);
 
     void drawTile(sf::RenderWindow& window);
 

@@ -6,6 +6,13 @@
 
 #include "Player.h"
 
+Enemy::Enemy(const std::string &filePath, float x, float y)  {
+    texture.loadFromFile(filePath);
+    texSize=texture.getSize();
+    position.x=x;
+    position.y=y;
+}
+
 void Enemy::drawEnemy(sf::RenderWindow &window) {
     sf::Sprite sprite(texture);
     sprite.setTexture(texture);
