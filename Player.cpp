@@ -8,7 +8,7 @@
 
 void Player::jump() {
     isGrounded=false;
-    velocity.y-=2;
+    velocity.y-=1.5;
 }
 
 Player::Player(const std::string &filePath, float x, float y) {
@@ -34,7 +34,8 @@ void Player::movement() {
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==0) {
         moveLeft();
     }else {
-        stopMovement();
+        //stopMovement();
+        velocity.x=0;
     }
     if (isGrounded) {
         spaceTimer=0;

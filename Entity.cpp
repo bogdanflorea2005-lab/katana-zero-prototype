@@ -38,9 +38,9 @@ void Entity::gravity() {
         airTime=0;
     }
     airTime++;
-    velocity.y+=0.75;
-    if (velocity.y>=12) {
-        velocity.y = 12;
+    velocity.y+=0.5;
+    if (velocity.y>=9) {
+        velocity.y = 9;
     }
     position.y+=velocity.y;
 }
