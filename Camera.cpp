@@ -122,7 +122,7 @@ void Camera::moveEntityWhenCentering(const Player &p, Entity& e) {
     if (p.velocity.x==0 && !isXCentered(p)) {
         e.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
     }
-    if ((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p)) {
+    if ((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p) && p.isGrounded==true) {
         e.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
     }
 }

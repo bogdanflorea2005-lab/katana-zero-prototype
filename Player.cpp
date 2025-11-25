@@ -8,7 +8,7 @@
 
 void Player::jump() {
     isGrounded=false;
-    velocity.y-=1.5;
+    velocity.y-=1.3;
 }
 
 Player::Player(const std::string &filePath, float x, float y) {
