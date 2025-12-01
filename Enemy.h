@@ -13,6 +13,10 @@ class Player;
 
 class Enemy: public Entity {
 private:
+    void moveLeft() override;
+    void moveRight() override;
+    void gravity() override;
+    void stopMovement() override;
 
 public:
     Enemy()=default;

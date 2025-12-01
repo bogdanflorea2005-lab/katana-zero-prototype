@@ -8,50 +8,15 @@
 
 #include "Tile.h"
 
-void Entity::moveLeft() {
-    velocity.x += 0.25;
-    if (velocity.x>=6) {
-        velocity.x = 6;
-    }
-    position.x+=velocity.x;
-}
+void Entity::moveLeft() {}
 
-void Entity::moveRight() {
-    velocity.x -= 0.25;
-    if (velocity.x<=-6) {
-        velocity.x = -6;
-    }
-    position.x+=velocity.x;
-}
+void Entity::moveRight() {}
 
-void Entity::jump() {
-    if (isGrounded==true) {
-        isGrounded = false;
-        velocity.y=0;
-        velocity.y -=20;
-        position.y+=velocity.y;
-    }
-}
+void Entity::jump() {}
 
-void Entity::gravity() {
-    if (isGrounded) {
-        airTime=0;
-    }
-    airTime++;
-    velocity.y+=0.5;
-    if (velocity.y>=9) {
-        velocity.y = 9;
-    }
-    position.y+=velocity.y;
-}
+void Entity::gravity() {}
 
-void Entity::stopMovement() {
-    direction=velocity.x/abs(velocity.x);
-    if (abs(velocity.x)>0) {
-        velocity.x -= 0.25*direction;
-    }
-    position.x+=velocity.x;
-}
+void Entity::stopMovement() {}
 
 void Entity::attack() {
     //will add sth once I make a "Projectile class"

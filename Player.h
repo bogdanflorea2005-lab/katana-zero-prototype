@@ -12,7 +12,16 @@ class Player: public Entity {
 private:
     int spaceTimer=0;
 
+    void moveLeft() override;
+    void moveRight() override;
+    void gravity() override;
+    void stopMovement() override;
     void jump() override;
+
+    void setPosition(sf::Vector2f pos) {
+        position.x=pos.x;
+        position.y=pos.y;
+    }
 
 public:
     Player(const std::string &filePath, float x, float y);
@@ -25,8 +34,11 @@ public:
 
     void movement();
 
+    Player &operator=(Player * player);
+
     friend class Enemy;
     friend class Camera;
+    friend class Room;
 };
 
 

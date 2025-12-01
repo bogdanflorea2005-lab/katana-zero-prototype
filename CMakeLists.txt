@@ -73,6 +73,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Tile.h
         Camera.cpp
         Camera.h
+        Room.cpp
+        Room.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

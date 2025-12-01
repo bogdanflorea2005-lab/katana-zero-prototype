@@ -20,19 +20,17 @@ protected:
     sf::Vector2u texSize;
     sf::Vector2f velocity=sf::Vector2f(0, 0);
 
-    void moveLeft();
+    virtual void moveLeft(); //
 
-    void moveRight();
+    virtual void moveRight(); //
 
-    virtual void jump();
+    virtual void jump(); //
 
-    void gravity();
+    virtual void gravity(); //
 
-    void stopMovement();
+    virtual void stopMovement(); //
 
     virtual void attack();
-
-    void setGrounded();
 
     bool isTouchingLeft(Tile t);
     bool isTouchingRight(Tile t);
@@ -40,6 +38,7 @@ protected:
     bool isTouchingBottom(Tile t);
 public:
     virtual ~Entity() = default;
+
 
     void checkCollision(Tile& t);
     friend class Enemy;

@@ -23,6 +23,8 @@ private:
     sf::Vector2f origin;
     const sf::Vector2u size=sf::Vector2u(300, 600);
 
+    void setOrigin(const sf::Vector2f& v);
+
     bool isTouchingUpper(Player& p) const;
     bool isTouchingLower(Player& p) const;
     bool isTouchingLeft(Player& p) const;
@@ -40,6 +42,8 @@ public:
     void moveEntityWhenCentering(const Player& p, Entity& e);
 
     void centerPlayer(Player &p);
+
+    friend class Room;
 };
 
 

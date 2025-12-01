@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "Room.h"
 #include "Tile.h"
 
 
@@ -47,93 +48,18 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
     w.draw(sprite);
 }
 
-void renderRoom(const std::string& roomID, sf::RenderWindow& window) {
-    std::string filePath1="Textures/placeholder.png";
-    std::string tilePath ="Textures/placeholderTile.png";
-    std::string tilePath2 ="Textures/placeholderTile2.png";
-    std::string enemyPath = "Textures/placeholderEnemy.png";
-    std::string lBozo="Textures/Lbozo.png";
-    Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
-    Camera c(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
-    Tile tiles[100];
-    Enemy enemies[100];
-
-    try {
-        if (roomID=="1") {
-            std::string filePath1="Textures/placeholder.png";
-            std::string tilePath ="Textures/placeholderTile.png";
-            std::string tilePath2 ="Textures/placeholderTile2.png";
-            std::string enemyPath = "Textures/placeholderEnemy.png";
-            std::string lBozo="Textures/Lbozo.png";
-            int tileNum=5, enemyNum=1;
-
-            Player player(filePath1, window.getSize().x/2, window.getSize().y/2);
-            Enemy e(enemyPath, 1500, 100);
-            Camera camera(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
-
-            tiles[0]=new Tile(tilePath, 300, 500, 1);
-            tiles[1]=new Tile(tiles[0], 1100, 450, 2);
-            tiles[2]=new Tile(tilePath2, 450, 850, 3);
-            tiles[3]=new Tile(tiles[2], 450+555, 850, 4);
-            tiles[4]=new Tile(tiles[3], 450+555+555, 650, 5);
-            enemies[0]=new Enemy(enemyPath, 1500, 100);
-            while (window.isOpen()) {
-                while (const std::optional event = window.pollEvent())
-                    if (event->is<sf::Event::Closed>())
-                        window.close();
-
-                window.clear();
-
-                camera.drawCambox(window, "Textures/CameraSize.png");
-                player.drawPlayer(window);
-                player.movement();
-
-                for (int i=0; i<tileNum; i++) {
-                    /*for (int j=0; j<enemyNum; j++) {
-                        enemies[j].checkCollision(tiles[i]);
-                    }*/
-                    e.checkCollision(tiles[i]);
-                    player.checkCollision(tiles[i]);
-                }
-
-                for (int i=0; i<tileNum; i++) {
-                    tiles[i].drawTile(window);
-                    camera.playerReachedBoundary(player, tiles[i]);
-                    camera.moveEntityWhenCentering(player, tiles[i]);
-                }
-
-                e.drawEnemy(window);
-                e.seekPlayer(player);
-                camera.playerReachedBoundary(player, e);
-                camera.moveEntityWhenCentering(player, e);
-
-                /*for (int i=0; i<enemyNum; i++) {
-                    enemies[i].drawEnemy(window);
-                    enemies[i].seekPlayer(player);
-                    camera.moveEntityWhenCentering(player, enemies[i]);
-                    camera.playerReachedBoundary(player, enemies[i]);
-                }*/
-
-                camera.centerPlayer(player);
-                if (player.getDead()==true) {
-                    displayImage(window, lBozo);
-                }
-
-                window.display();
-            }
-        }else {
-            throw 0;
-        }
-    }catch (int i) {
-        std::cerr<<"A room id was not recognised...\n\n";
-    }
-}
 
 int main() {
 
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
-    renderRoom("1", window);
+    std::string filePath1="Textures/placeholder.png";
+    Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
+    Camera c(sf::Vector2f(window.getSize().x, window.getSize().y));
+    Room room("test");
+
+    room.drawRoom(window, p, c);
+
 
     return 0;
 }

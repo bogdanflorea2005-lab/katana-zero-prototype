@@ -6,6 +6,42 @@
 
 #include "Player.h"
 
+void Enemy::moveLeft() {
+    velocity.x += 0.25;
+    if (velocity.x>=6) {
+        velocity.x = 6;
+    }
+    position.x+=velocity.x;
+}
+
+void Enemy::moveRight() {
+    velocity.x -= 0.25;
+    if (velocity.x<=-6) {
+        velocity.x = -6;
+    }
+    position.x+=velocity.x;
+}
+
+void Enemy::gravity() {
+    if (isGrounded) {
+        airTime=0;
+    }
+    airTime++;
+    velocity.y+=0.5;
+    if (velocity.y>=9) {
+        velocity.y = 9;
+    }
+    position.y+=velocity.y;
+}
+
+void Enemy::stopMovement() {
+    direction=velocity.x/abs(velocity.x);
+    if (abs(velocity.x)>0) {
+        velocity.x -= 0.25*direction;
+    }
+    position.x+=velocity.x;
+}
+
 Enemy::Enemy(const std::string &filePath, float x, float y)  {
     texture.loadFromFile(filePath);
     texSize=texture.getSize();

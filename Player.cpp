@@ -6,6 +6,42 @@
 
 #include <iostream>
 
+void Player::moveLeft() {
+    velocity.x += 0.25;
+    if (velocity.x>=6) {
+        velocity.x = 6;
+    }
+    position.x+=velocity.x;
+}
+
+void Player::moveRight() {
+    velocity.x -= 0.25;
+    if (velocity.x<=-6) {
+        velocity.x = -6;
+    }
+    position.x+=velocity.x;
+}
+
+void Player::gravity() {
+    if (isGrounded) {
+        airTime=0;
+    }
+    airTime++;
+    velocity.y+=0.5;
+    if (velocity.y>=9) {
+        velocity.y = 9;
+    }
+    position.y+=velocity.y;
+}
+
+void Player::stopMovement() {
+    direction=velocity.x/abs(velocity.x);
+    if (abs(velocity.x)>0) {
+        velocity.x -= 0.25*direction;
+    }
+    position.x+=velocity.x;
+}
+
 void Player::jump() {
     isGrounded=false;
     velocity.y-=1.9;
@@ -50,4 +86,12 @@ void Player::movement() {
     }
 
 
+}
+
+Player & Player::operator=(Player *player) {
+    position.x=player->position.x;
+    position.y=player->position.y;
+    isGrounded=player->isGrounded;
+
+    return *this;
 }

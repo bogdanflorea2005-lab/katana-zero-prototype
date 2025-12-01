@@ -25,6 +25,10 @@ void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
     //std::cout<<"x: "<<origin.x<<"y: "<<origin.y<<std::endl;
 }
 
+void Camera::setOrigin(const sf::Vector2f &v) {
+    origin=v;
+}
+
 bool Camera::isTouchingUpper(Player &p) const {
     if (p.velocity.y<0) {
         if (p.position.y-p.texSize.y/2+p.velocity.y<origin.y-size.y/2) {
@@ -99,6 +103,7 @@ void Camera::playerReachedBoundary(Player &p, Tile& t) const {
     \/
 **/
 void Camera::playerReachedBoundary(Player &p, Enemy &e) const {
+
     if (isTouchingUpper(p)) {
         e.camMoveUp(p.velocity.y);
         p.position.y=origin.y-size.y/2+p.texSize.y/2;
