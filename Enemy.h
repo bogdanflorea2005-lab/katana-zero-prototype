@@ -4,6 +4,8 @@
 
 #ifndef OOP_ENEMY_H
 #define OOP_ENEMY_H
+#include <iostream>
+
 #include "Entity.h"
 #include "SFML/Graphics.hpp"
 
@@ -20,6 +22,9 @@ private:
 
 public:
     Enemy()=default;
+    ~Enemy() {
+        std::cout<<"deleted an enemy\n";
+    }
     Enemy(const std::string &filePath, float x, float y);
 
     void camMoveLeft(float velo);

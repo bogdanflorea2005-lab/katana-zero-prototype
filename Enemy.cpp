@@ -43,7 +43,10 @@ void Enemy::stopMovement() {
 }
 
 Enemy::Enemy(const std::string &filePath, float x, float y)  {
-    texture.loadFromFile(filePath);
+    if (!texture.loadFromFile(filePath)) {
+        std::cout<<"Texture loading failed\n";
+        texture.loadFromFile("Textures/Lbozo.png");
+    }
     texSize=texture.getSize();
     position.x=x;
     position.y=y;

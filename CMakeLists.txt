@@ -75,6 +75,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Camera.h
         Room.cpp
         Room.h
+        roomIDError.cpp
+        roomIDError.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

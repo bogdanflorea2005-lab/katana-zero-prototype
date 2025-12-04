@@ -29,7 +29,10 @@ Tile &Tile::operator=(Tile *tile) {
 }
 
 Tile::Tile(const std::string filePath, float x, float y, int tileID){
-    texture.loadFromFile(filePath);
+    if (!texture.loadFromFile(filePath)) {
+        std::cout<<"Texture loading failed\n";
+        texture.loadFromFile("Textures/Lbozo.png");
+    }
     texSize=texture.getSize();
     position.x = x;
     position.y = y;

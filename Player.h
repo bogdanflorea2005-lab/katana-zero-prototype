@@ -4,6 +4,8 @@
 
 #ifndef OOP_PLAYER_H
 #define OOP_PLAYER_H
+#include <iostream>
+
 #include "Entity.h"
 #include "SFML/Graphics.hpp"
 
@@ -25,6 +27,9 @@ private:
 
 public:
     Player(const std::string &filePath, float x, float y);
+    ~Player() {
+        std::cout<<"deleted player\n";
+    };
 
     bool getDead() {
         return isDead;

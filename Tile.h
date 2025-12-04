@@ -24,7 +24,7 @@ public:
     Tile()=default;
 
     ~Tile() {
-        //std::cout<<"deleted a tile\n\n";
+        std::cout<<"deleted a tile\n";
     };
 
     Tile(const std::string filePath, float x, float y, int tileID);

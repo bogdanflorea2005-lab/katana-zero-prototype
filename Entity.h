@@ -4,6 +4,8 @@
 
 #ifndef OOP_ENTITY_H
 #define OOP_ENTITY_H
+#include <iostream>
+
 #include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
@@ -37,7 +39,9 @@ protected:
     bool isTouchingTop(Tile t);
     bool isTouchingBottom(Tile t);
 public:
-    virtual ~Entity() = default;
+    virtual ~Entity() {
+        std::cout<<"deleted an entity\n";
+    };
 
 
     void checkCollision(Tile& t);

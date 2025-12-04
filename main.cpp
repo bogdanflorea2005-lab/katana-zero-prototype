@@ -56,10 +56,9 @@ int main() {
     std::string filePath1="Textures/placeholder.png";
     Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
     Camera c(sf::Vector2f(window.getSize().x, window.getSize().y));
-    Room room("test");
+    Room room("tes");
 
     room.drawRoom(window, p, c);
-
 
     return 0;
 }
