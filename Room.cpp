@@ -59,7 +59,7 @@ Room::Room(std::string roomID) {
 
 void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
     if (hasError) {
-        std::string errFile="Textures/PROSTJEGOSFMM.png";
+        std::string errFile="Textures/ThatFuckinFuckThatIHate.png";
         sf::Texture err;
         try {
             if (!err.loadFromFile(errFile)) {
