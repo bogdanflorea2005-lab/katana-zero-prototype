@@ -50,7 +50,7 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
 
 
 int main() {
-    Room room("test");
+    Room room("tes");
 
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
