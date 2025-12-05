@@ -25,10 +25,11 @@ private:
     bool hasError=0;
 
 public:
-    Room(std::string roomID);
     ~Room() {
-        std::cout<<"deleted a room\n";
+        std::cout << "Room Destroyed" << std::endl;
     }
+
+    explicit Room(const std::string &roomID, sf::RenderWindow &window);
 
     void drawRoom(sf::RenderWindow& window, Player& player, Camera& camera);
 

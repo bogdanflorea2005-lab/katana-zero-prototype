@@ -144,4 +144,8 @@ Player & Player::operator=(Player *player) {
 
 void Player::tempAttack(Enemy &e) {
     //temporary attack to check if static enemy kill counter works
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)==1 && !e.isDead) {
+        enemiesKilled++;
+        e.isDead=true;
+    }
 }

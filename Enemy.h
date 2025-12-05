@@ -28,6 +28,7 @@ public:
     ~Enemy() {
         // std::cout<<"deleted an enemy\n";
     }
+
     Enemy(const std::string &filePath, float x, float y);
 
     void camMoveLeft(float velo);
@@ -45,6 +46,7 @@ public:
     Enemy &operator=(Enemy* enemy);
 
     friend class Room;
+    friend class Player;
 
 };
 

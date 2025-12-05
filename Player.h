@@ -14,10 +14,12 @@
 
 
 class Player: public Entity {
+public:
+    static int enemiesKilled;
 private:
     int spaceTimer=0;
-    static int enemiesKilled;
     std::string currentRoom;
+    sf::Vector2f coordinates;
 
     void moveLeft() override;
     void moveRight() override;
@@ -35,7 +37,8 @@ private:
 public:
     Player(const std::string &filePath, float x, float y);
     ~Player() {
-        // std::cout<<"deleted player\n";
+        std::cout<<"enemies killed: "<<enemiesKilled<<std::endl;
+        std::cout<<"deleted player\n";
     };
 
     bool getDead() {

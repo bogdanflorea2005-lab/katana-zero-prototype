@@ -42,6 +42,8 @@ void changeRooms(Room& oldRoom, const std::string& newRoomId){\n
     }
 **/
 
+int Player::enemiesKilled=0;
+
 void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
     sf::Texture texture;
     texture.loadFromFile(imagePath);
@@ -52,15 +54,15 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
     w.draw(sprite);
 }
 
-
 int main() {
-    Room room("test");
 
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
     std::string filePath1="Textures/placeholder.png";
     Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
     Camera c(sf::Vector2f(window.getSize().x, window.getSize().y));
+
+    Room room("test", window);
 
 
     room.drawRoom(window, p, c);

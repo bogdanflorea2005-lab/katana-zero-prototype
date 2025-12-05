@@ -12,7 +12,7 @@
 #include "TextureLoadingError.h"
 #include "SFML/Graphics.hpp"
 
-Room::Room(std::string roomID) {
+Room::Room(const std::string& roomID, sf::RenderWindow& window) {
     std::cout<<"creating a room\n\n";
     try {
         /**
@@ -29,12 +29,14 @@ Room::Room(std::string roomID) {
      }
      where the file name will also be the room's ID
      **/
+
+        //for now, enemiesKilled will be 0 on launch. After i figure out how to deal with save-states, it will be stored in there
         if (roomID == "test") {
             Player::enemiesKilled=0;
             tileNum=5;
             enemyNum=2;
-            roomSize=sf::Vector2f(2000, 2000);
-            roomCentre=sf::Vector2f(roomSize.x/2, roomSize.y/2);
+            roomSize=sf::Vector2f(window.getSize().x, window.getSize().y);
+            roomCentre=sf::Vector2f(window.getSize().x/2, window.getSize().y/2);
             checkpointPos=roomCentre;
             std::string tilePath ="Textures/placeholderTile.png";
             std::string tilePath2 ="Textures/placeholderTile2.png";
@@ -87,11 +89,12 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         Entity *p1=&player;
         auto *p=dynamic_cast<Player*>(p1);
 
-        p->setPosition(checkpointPos);
+        //p->setPosition(sf::Vector2f(-500, -500));
+        p->setPosition(roomCentre);
         camera.setOrigin(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
 
         std::cout<<"tileNum: "<<tileNum<<std::endl<<"enemyNum: "<<enemyNum<<"\n";
-        float xCoord=roomCentre.x, yCoord=roomCentre.y;
+        p->coordinates=roomCentre;
         while (window.isOpen()) {
             while (const std::optional event = window.pollEvent())
                 if (event->is<sf::Event::Closed>())
@@ -100,20 +103,18 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             window.clear();
 
             try {
-                xCoord+=p->getVelocity().x;
-                yCoord+=p->getVelocity().y;
+                p->coordinates=sf::Vector2f(p->coordinates.x+p->velocity.x, p->coordinates.y+p->velocity.y);
                 checkpointPos.x-=p->getVelocity().x;
                 checkpointPos.y-=p->getVelocity().y;
-                std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<xCoord<<"\nY: "<<yCoord<<std::endl;
-                if (xCoord>roomSize.x || xCoord<(-1)*roomSize.x || yCoord>roomSize.y || yCoord<(-1)*roomSize.y) {
+                std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<p->coordinates.x<<"\nY: "<<p->coordinates.y<<std::endl;
+                if (p->coordinates.x>roomSize.x || p->coordinates.x<(-1)*roomSize.x || p->coordinates.y>roomSize.y || p->coordinates.y<(-1)*roomSize.y) {
                     throw PlayerOutOfBoundsError(*p, p->getPosition());
                 }
             }catch (PlayerOutOfBoundsError boundErr) {
                 p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
-                xCoord=roomCentre.x;
-                yCoord=roomCentre.y;
+                p->coordinates=roomCentre;
             }
 
             camera.drawCambox(window, "Textures/CameraSize.png");
@@ -134,6 +135,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             }
 
             for (int i=0; i<enemyNum; i++) {
+                Player::tempAttack(enemies[i]);
                 enemies[i].drawEnemy(window);
                 enemies[i].seekPlayer(*p);
                 camera.moveEntityWhenCentering(*p, enemies[i]);

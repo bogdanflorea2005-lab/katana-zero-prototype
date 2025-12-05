@@ -14,7 +14,7 @@
 class PlayerOutOfBoundsError: public std::exception {
 public:
     PlayerOutOfBoundsError(Player& p, sf::Vector2f position) {
-        std::cerr << "You managed to get out of bounds. Sorry about that...\n";
+        std::cerr << "\nYou managed to get out of bounds. Sorry about that...\n";
     } ;
 };
 
