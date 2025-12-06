@@ -46,8 +46,18 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             tiles[2]=new Tile(tilePath2, 450, 1050, 3);
             tiles[3]=new Tile(tiles[2], 450+555, 1050, 4);
             tiles[4]=new Tile(tiles[3], 450+555+555, 850, 5);
-            enemies[0]=new Enemy(enemyPath, 1500, 200);
-            enemies[1]=new Enemy(enemyPath, 300, 150);
+            {
+                /*
+                Ok, so, I don't know why, but doing sth like this makes the enemies work, but enemies[i]=new Enemy(data) makes them noclip.
+                This means that I will have to fill my enemies[] vector through a locally declared Enemy, instead of re-instantiating them using 'new'.
+                That might be caused by a faulty implementation of op= override or cc override, though I don't know why or how that would affect tile collision...
+                */
+                Enemy e1(enemyPath, 1500, 200);
+                Enemy e2(enemyPath, 300, 150);
+                enemies[0]=e1;
+                enemies[1]=e2;
+            }
+
         }else {
             RoomIDError err(roomID);
             tileNum=0;
@@ -111,6 +121,10 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                     throw PlayerOutOfBoundsError(*p, p->getPosition());
                 }
             }catch (PlayerOutOfBoundsError boundErr) {
+                /*
+                I will have to either revisit this, or re-write the whole project from scratch, replacing all float variables with integers, and while I'm at it,
+                maybe revise tile collision to use a*x+b=y functions, instead of 4 points on a plane for tiles.
+                */
                 p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
