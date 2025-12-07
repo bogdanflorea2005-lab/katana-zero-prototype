@@ -7,9 +7,9 @@
 #include "Player.h"
 
 #include "error.h"
-#include "PlayerOutOfBoundsError.h"
-#include "RoomIDError.h"
-#include "TextureLoadingError.h"
+#include "PlayerOutOfBoundsException.h"
+#include "RoomIDException.h"
+#include "TextureLoadingException.h"
 #include "SFML/Graphics.hpp"
 
 Room::Room(const std::string& roomID, sf::RenderWindow& window) {
@@ -60,12 +60,12 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             }
 
         }else {
-            RoomIDError err(roomID);
+            RoomIDException err(roomID);
             tileNum=0;
             enemyNum=0;
             throw err;
         }
-    }catch (RoomIDError err) {
+    }catch (RoomIDException err) {
         hasError=1;
     }
 
@@ -77,7 +77,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         sf::Texture err;
         try {
             if (!err.loadFromFile(errFile)) {
-                TextureLoadingError texErr(errFile);
+                TextureLoadingException texErr(errFile);
                 throw texErr;
             }
 
@@ -93,7 +93,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 window.display();
             }
             window.close();
-        }catch (TextureLoadingError texErr){
+        }catch (TextureLoadingException texErr){
             std::cerr<<"error image has an error :/\n";
         }
     }else {
@@ -112,25 +112,27 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                     window.close();
 
             window.clear();
-
-            try {
+            /**
+                OUT OF BOUNDS ERROR NEEDS TO BE REVISED!!
+            **/
+            /*try {
                 p->coordinates=sf::Vector2f(p->coordinates.x+p->velocity.x, p->coordinates.y+p->velocity.y);
                 checkpointPos.x-=p->getVelocity().x;
                 checkpointPos.y-=p->getVelocity().y;
                 std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<p->coordinates.x<<"\nY: "<<p->coordinates.y<<std::endl;
                 if (p->coordinates.x>roomSize.x || p->coordinates.x<(-1)*roomSize.x || p->coordinates.y>roomSize.y || p->coordinates.y<(-1)*roomSize.y) {
-                    throw PlayerOutOfBoundsError(*p, p->getPosition());
+                    throw PlayerOutOfBoundsException(*p, p->getPosition());
                 }
-            }catch (PlayerOutOfBoundsError boundErr) {
+            }catch (PlayerOutOfBoundsException boundErr) {
                 /*
                 I will have to either revisit this, or re-write the whole project from scratch, replacing all float variables with integers, and while I'm at it,
                 maybe revise tile collision to use a*x+b=y functions, instead of 4 points on a plane for tiles.
-                */
+                #1#
                 p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
                 p->coordinates=roomCentre;
-            }
+            }*/
 
             camera.drawCambox(window, "Textures/CameraSize.png");
             p->drawPlayer(window);

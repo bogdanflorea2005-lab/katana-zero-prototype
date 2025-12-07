@@ -34,7 +34,7 @@ public:
     void drawRoom(sf::RenderWindow& window, Player& player, Camera& camera);
 
 
-    friend class RoomIDError;
+    friend class RoomIDException;
 };
 
 

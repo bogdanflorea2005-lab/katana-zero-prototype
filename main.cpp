@@ -7,11 +7,11 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Room.h"
-#include "PlayerOutOfBoundsError.h"
+#include "PlayerOutOfBoundsException.h"
 #include "Tile.h"
 
-#include "RoomIDError.h"
-#include "TextureLoadingError.h"
+#include "RoomIDException.h"
+#include "TextureLoadingException.h"
 
 
 /**

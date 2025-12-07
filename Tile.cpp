@@ -4,9 +4,9 @@
 
 #include "Tile.h"
 
-#include "TextureLoadingError.h"
+#include "TextureLoadingException.h"
 
-class TextureLoadingError;
+class TextureLoadingException;
 
 
 void Tile::moveLeft(float velo) {
@@ -38,25 +38,25 @@ Tile::Tile(const std::string& filePath, float x, float y, int tileID){
     try {
 
         if (!texture.loadFromFile(filePath)) {
-            throw TextureLoadingError(filePath);
+            throw TextureLoadingException(filePath);
         }
         texSize=texture.getSize();
         position.x = x;
         position.y = y;
         this->tileID=tileID;
 
-    }catch (TextureLoadingError& texErr) {
+    }catch (TextureLoadingException& texErr) {
         try {
 
             if (!texture.loadFromFile("Textures/Lbozo.png")) {
-                throw TextureLoadingError("Textures/Lbozo.png");
+                throw TextureLoadingException("Textures/Lbozo.png");
             }
             texSize=texture.getSize();
             position.x = x;
             position.y = y;
             this->tileID=tileID;
 
-        }catch (TextureLoadingError& severeTexErr) {
+        }catch (TextureLoadingException& severeTexErr) {
             std::cerr<<"error image has an error :/\n";
         }
     }
