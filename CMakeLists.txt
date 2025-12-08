@@ -73,14 +73,14 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Tile.h
         Camera.cpp
         Camera.h
-        Room.cpp
-        Room.h
         RoomIDException.cpp
         RoomIDException.h
         TextureLoadingException.cpp
         TextureLoadingException.h
         PlayerOutOfBoundsException.cpp
         PlayerOutOfBoundsException.h
+        Room.cpp
+        Room.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

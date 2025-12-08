@@ -80,29 +80,12 @@ bool Camera::isYCentered(const Player &p) const {
 }
 
 
-void Camera::playerReachedBoundary(Player &p, Tile& t) const {
-    if (isTouchingUpper(p)) {
-        t.moveUp(p.velocity.y);
-        p.position.y=origin.y-size.y/2+p.texSize.y/2;
-    }
-    if (isTouchingLower(p)) {
-        t.moveDown(p.velocity.y);
-        p.position.y=origin.y+size.y/2-p.texSize.y/2;
-    }
-    if (isTouchingLeft(p)) {
-        t.moveLeft(p.velocity.x);
-        p.position.x=origin.x-size.x/2+p.texSize.x/2;
-    }
-    if (isTouchingRight(p)) {
-        t.moveRight(p.velocity.x);
-        p.position.x=origin.x+size.x/2-p.texSize.x/2;
-    }
-}
+
 /**  /\
      |    Can be combined since for() works in main
     \/
 **/
-void Camera::playerReachedBoundary(Player &p, Enemy &e) const {
+void Camera::playerReachedBoundary(Player &p, Entity &e) const {
 
     if (isTouchingUpper(p)) {
         e.camMoveUp(p.velocity.y);

@@ -15,13 +15,14 @@ class Player;
 
 class Enemy: public Entity {
 private:
-
+    bool isDead=false;
 
 
     void moveLeft() override;
     void moveRight() override;
     void gravity() override;
     void stopMovement() override;
+
 
 public:
     Enemy()=default;
@@ -31,14 +32,9 @@ public:
 
     Enemy(const std::string &filePath, float x, float y);
 
-    void camMoveLeft(float velo);
-    void camMoveRight(float velo);
-    void camMoveUp(float velo);
-    void camMoveDown(float velo);
+    void seekPlayer(sf::Vector2f playerCoords); //<-- update() for Observer pattern
 
     void drawEnemy(sf::RenderWindow &window);
-
-    void seekPlayer(Player& p);
 
     friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
 

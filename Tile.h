@@ -20,10 +20,6 @@ private:
 
 
 public:
-    void moveLeft(float velo);
-    void moveRight(float velo);
-    void moveUp(float velo);
-    void moveDown(float velo);
 
     Tile &operator=(Tile * tile);
 

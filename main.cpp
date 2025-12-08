@@ -64,7 +64,6 @@ int main() {
 
     Room room("test", window);
 
-
     room.drawRoom(window, p, c);
 
     return 0;

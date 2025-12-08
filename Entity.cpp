@@ -18,6 +18,22 @@ void Entity::gravity() {}
 
 void Entity::stopMovement() {}
 
+void Entity::camMoveLeft(float velo) {
+    position.x-=velo;
+}
+
+void Entity::camMoveRight(float velo) {
+    position.x-=velo;
+}
+
+void Entity::camMoveUp(float velo) {
+    position.y-=velo;
+}
+
+void Entity::camMoveDown(float velo) {
+    position.y-=velo;
+}
+
 void Entity::attack() {
     //will add sth once I make a "Projectile class"
 }

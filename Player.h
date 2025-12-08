@@ -11,15 +11,20 @@
 #include "Enemy.h"
 #include "Tile.h"
 #include "SFML/Graphics.hpp"
+#include <vector>
+#include <algorithm>
 
 
 class Player: public Entity {
 public:
     static int enemiesKilled;
+    //static bool isPlayerDead;
+
 private:
     int spaceTimer=0;
     std::string currentRoom;
     sf::Vector2f coordinates;
+    std::vector<Enemy*> enemies; //<-- Observers for Observer pattern
 
     void moveLeft() override;
     void moveRight() override;
@@ -41,9 +46,9 @@ public:
         std::cout<<"deleted player\n";
     };
 
-    bool getDead() {
-        return isDead;
-    }
+    /*bool getDead() {
+        return isPlayerDead;
+    }*/
 
     void drawPlayer(sf::RenderWindow& window);
 
@@ -52,6 +57,10 @@ public:
     Player &operator=(Player * player);
 
     static void tempAttack(Enemy& e);
+
+    void registerEnemy(Enemy *enemy);   //
+    void removeEnemy(Enemy *enemy);     //  <-- Observer pattern
+    void notifyEnemies();               //
 
     friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
 

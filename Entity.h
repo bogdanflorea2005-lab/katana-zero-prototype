@@ -17,7 +17,7 @@ class Entity {
 protected:
     int direction=0, airTime=0;
     sf::Vector2f position;
-    bool isGrounded=false, isDead=false;
+    bool isGrounded=false;
     sf::Texture texture;
     sf::Vector2u texSize;
     sf::Vector2f velocity=sf::Vector2f(0, 0);
@@ -43,6 +43,10 @@ public:
         // std::cout<<"deleted an entity\n";
     };
 
+    void camMoveLeft(float velo);
+    void camMoveRight(float velo);
+    void camMoveUp(float velo);
+    void camMoveDown(float velo);
 
     void checkCollision(Tile& t);
     friend class Enemy;

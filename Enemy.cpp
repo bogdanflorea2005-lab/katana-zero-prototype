@@ -71,20 +71,18 @@ Enemy::Enemy(const std::string &filePath, float x, float y): Entity()  {
     }
 }
 
-void Enemy::camMoveLeft(float velo) {
-    position.x-=velo;
-}
+void Enemy::seekPlayer(sf::Vector2f playerCoords) {
+    if (!isDead) {
+        gravity();
+        float distance;
+        distance = abs(playerCoords.x - this->position.x);
+        if (position.x<playerCoords.x && distance >30) {
+            moveLeft();
+        }else if (position.x>playerCoords.x && distance >30) {
+            moveRight();
+        }
+    }
 
-void Enemy::camMoveRight(float velo) {
-    position.x-=velo;
-}
-
-void Enemy::camMoveUp(float velo) {
-    position.y-=velo;
-}
-
-void Enemy::camMoveDown(float velo) {
-    position.y-=velo;
 }
 
 void Enemy::drawEnemy(sf::RenderWindow &window) {
@@ -95,23 +93,6 @@ void Enemy::drawEnemy(sf::RenderWindow &window) {
         sprite.setPosition(position);
         sprite.setScale(sf::Vector2f(1, 1));
         window.draw(sprite);
-    }
-}
-
-void Enemy::seekPlayer(Player& p) {
-    if (!isDead) {
-        gravity();
-        float distance;
-        distance = abs(p.position.x - this->position.x);
-        if (position.x<p.position.x && distance >30) {
-            moveLeft();
-        }else if (position.x>p.position.x && distance >30) {
-            moveRight();
-        }
-
-        if (distance<40 && abs(position.y-p.position.y)<40) {
-            p.isDead = true;
-        }
     }
 }
 

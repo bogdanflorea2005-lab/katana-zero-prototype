@@ -131,7 +131,7 @@ void Player::movement() {
         spaceTimer++;
     }
 
-
+    notifyEnemies();
 }
 
 Player & Player::operator=(Player *player) {
@@ -147,5 +147,19 @@ void Player::tempAttack(Enemy &e) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)==1 && !e.isDead) {
         enemiesKilled++;
         e.isDead=true;
+    }
+}
+
+void Player::registerEnemy(Enemy* enemy) {
+    enemies.push_back(enemy);
+}
+
+void Player::removeEnemy(Enemy* enemy) {
+    enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+}
+
+void Player::notifyEnemies() {
+    for (Enemy* enemy:enemies) {
+        enemy->seekPlayer(coordinates);
     }
 }

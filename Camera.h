@@ -29,16 +29,15 @@ private:
     bool isTouchingLower(Player& p) const;
     bool isTouchingLeft(Player& p) const;
     bool isTouchingRight(Player& p) const;
-    bool isXCentered(const Player& p) const;
-    bool isYCentered(const Player& p) const;
+    [[nodiscard]] bool isXCentered(const Player& p) const;
+    [[nodiscard]] bool isYCentered(const Player& p) const;
 
 public:
-    Camera(sf::Vector2f origin);
+    explicit Camera(sf::Vector2f origin);
 
     void drawCambox(sf::RenderWindow& window, std::string texFile);
 
-    void playerReachedBoundary(Player& p, Tile& t) const;
-    void playerReachedBoundary(Player& p, Enemy& e) const;
+    void playerReachedBoundary(Player& p, Entity& e) const;
     void moveEntityWhenCentering(const Player& p, Entity& e);
 
     void centerPlayer(Player &p);

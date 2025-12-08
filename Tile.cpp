@@ -8,23 +8,6 @@
 
 class TextureLoadingException;
 
-
-void Tile::moveLeft(float velo) {
-    position.x-=velo;
-}
-
-void Tile::moveRight(float velo) {
-    position.x-=velo;
-}
-
-void Tile::moveUp(float velo) {
-    position.y-=velo;
-}
-
-void Tile::moveDown(float velo) {
-    position.y-=velo;
-}
-
 Tile &Tile::operator=(Tile *tile) {
     this->position=sf::Vector2f(tile->position.x, tile->position.y);
     this->texture=tile->texture;

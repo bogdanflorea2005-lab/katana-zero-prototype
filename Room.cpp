@@ -33,6 +33,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
         //for now, enemiesKilled will be 0 on launch. After I figure out how to deal with save-states, it will be stored in there
         if (roomID == "test") {
             Player::enemiesKilled=0;
+            //Player::isPlayerDead=false;
             tileNum=5;
             enemyNum=2;
             roomSize=sf::Vector2f(window.getSize().x, window.getSize().y);
@@ -73,7 +74,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
 
 void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
     if (hasError) {
-        std::string errFile="Textures/CustomErrorImg.png";
+        std::string errFile="Textures/Mihaita-Dragan.png";
         sf::Texture err;
         try {
             if (!err.loadFromFile(errFile)) {
@@ -106,6 +107,9 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
 
         std::cout<<"tileNum: "<<tileNum<<std::endl<<"enemyNum: "<<enemyNum<<"\n";
         p->coordinates=roomCentre;
+        for (int i=0; i<enemyNum; i++) {
+            p->registerEnemy(&enemies[i]);
+        }
         while (window.isOpen()) {
             while (const std::optional event = window.pollEvent())
                 if (event->is<sf::Event::Closed>())
@@ -128,10 +132,10 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 I will have to either revisit this, or re-write the whole project from scratch, replacing all float variables with integers, and while I'm at it,
                 maybe revise tile collision to use a*x+b=y functions, instead of 4 points on a plane for tiles.
                 */
-                p->setPosition(checkpointPos);
+                p->setPosition(sf::Vector2f(tiles[3].position.x, tiles[3].position.y+p->texture.getSize().y/2));
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
-                p->coordinates=roomCentre;
+                p->coordinates=sf::Vector2f(tiles[3].position.x, tiles[3].position.y+p->texture.getSize().y/2);
             }
 
             camera.drawCambox(window, "Textures/CameraSize.png");
@@ -154,13 +158,14 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             for (int i=0; i<enemyNum; i++) {
                 Player::tempAttack(enemies[i]);
                 enemies[i].drawEnemy(window);
-                enemies[i].seekPlayer(*p);
                 camera.moveEntityWhenCentering(*p, enemies[i]);
                 camera.playerReachedBoundary(*p, enemies[i]);
             }
-
             camera.centerPlayer(*p);
             window.display();
+        }
+        for (int i=0; i<enemyNum; i++) {
+            p->removeEnemy(&enemies[i]);
         }
     }
 }
