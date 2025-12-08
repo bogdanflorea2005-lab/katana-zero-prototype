@@ -30,7 +30,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
      where the file name will also be the room's ID
      **/
 
-        //for now, enemiesKilled will be 0 on launch. After i figure out how to deal with save-states, it will be stored in there
+        //for now, enemiesKilled will be 0 on launch. After I figure out how to deal with save-states, it will be stored in there
         if (roomID == "test") {
             Player::enemiesKilled=0;
             tileNum=5;
@@ -66,7 +66,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             throw err;
         }
     }catch (RoomIDException err) {
-        hasError=1;
+        hasError=true;
     }
 
 }
@@ -115,7 +115,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             /**
                 OUT OF BOUNDS ERROR NEEDS TO BE REVISED!!
             **/
-            /*try {
+            try {
                 p->coordinates=sf::Vector2f(p->coordinates.x+p->velocity.x, p->coordinates.y+p->velocity.y);
                 checkpointPos.x-=p->getVelocity().x;
                 checkpointPos.y-=p->getVelocity().y;
@@ -127,12 +127,12 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 /*
                 I will have to either revisit this, or re-write the whole project from scratch, replacing all float variables with integers, and while I'm at it,
                 maybe revise tile collision to use a*x+b=y functions, instead of 4 points on a plane for tiles.
-                #1#
+                */
                 p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
                 p->coordinates=roomCentre;
-            }*/
+            }
 
             camera.drawCambox(window, "Textures/CameraSize.png");
             p->drawPlayer(window);
