@@ -7,6 +7,7 @@
 #include "Player.h"
 
 #include "error.h"
+#include "ParticleFactory.h"
 #include "PlayerOutOfBoundsException.h"
 #include "RoomIDException.h"
 #include "TextureLoadingException.h"
@@ -36,12 +37,14 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             //Player::isPlayerDead=false;
             tileNum=5;
             enemyNum=2;
+            particleNum=1;
             roomSize=sf::Vector2f(window.getSize().x, window.getSize().y);
             roomCentre=sf::Vector2f(window.getSize().x/2, window.getSize().y/2);
             checkpointPos=roomCentre;
             std::string tilePath ="Textures/placeholderTile.png";
             std::string tilePath2 ="Textures/placeholderTile2.png";
             std::string enemyPath = "Textures/placeholderEnemy.png";
+            particleKeys[0]="Textures/Particle.png";
             tiles[0]=new Tile(tilePath, 300, 500, 1);
             tiles[1]=new Tile(tiles[0], 1100, 450, 2);
             tiles[2]=new Tile(tilePath2, 450, 1050, 3);
@@ -110,6 +113,9 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         for (int i=0; i<enemyNum; i++) {
             p->registerEnemy(&enemies[i]);
         }
+
+        ParticleFactory particleFactory;
+
         while (window.isOpen()) {
             while (const std::optional event = window.pollEvent())
                 if (event->is<sf::Event::Closed>())
@@ -136,6 +142,13 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
                 p->coordinates=sf::Vector2f(tiles[3].position.x, tiles[3].position.y+p->texture.getSize().y/2);
+            }
+
+
+            for (int j=0; j<50; j++) {
+                for (int i=0; i<particleNum; i++) {
+                    particleFactory.getParticle(particleKeys[i])->draw(sf::Vector2f(rand()%1900, rand()%1000), window);
+                }
             }
 
             camera.drawCambox(window, "Textures/CameraSize.png");

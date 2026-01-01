@@ -81,6 +81,10 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         PlayerOutOfBoundsException.h
         Room.cpp
         Room.h
+        Particle.cpp
+        Particle.h
+        ParticleFactory.cpp
+        ParticleFactory.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

@@ -15,10 +15,12 @@
 class Room {
 private:
     std::string roomID;
-    int tileNum, enemyNum;
+    int tileNum, enemyNum, particleNum;
     sf::Vector2f checkpointPos, roomSize, roomCentre;
+
     std::array<Tile, 5> tiles;
     std::array<Enemy, 2> enemies;
+    std::array<std::string, 1> particleKeys;
     // Tile tiles[5];
     // Enemy enemies[2];
 
@@ -35,6 +37,7 @@ public:
 
 
     friend class RoomIDException;
+
 };
 
 
