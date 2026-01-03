@@ -32,6 +32,4 @@ void Particle::draw(sf::Vector2f coords, sf::RenderWindow& window) {
     sf::Sprite sprite(m_texture);
     sprite.setPosition(coords);
     window.draw(sprite);
-    coords.x-=rand()%5;
-    coords.y+=rand()%5;
 }

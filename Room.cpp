@@ -10,6 +10,7 @@
 #include "ParticleFactory.h"
 #include "PlayerOutOfBoundsException.h"
 #include "RoomIDException.h"
+#include "TempClass.h"
 #include "TextureLoadingException.h"
 #include "SFML/Graphics.hpp"
 
@@ -110,11 +111,17 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
 
         std::cout<<"tileNum: "<<tileNum<<std::endl<<"enemyNum: "<<enemyNum<<"\n";
         p->coordinates=roomCentre;
+        ParticleFactory particleFactory;
         for (int i=0; i<enemyNum; i++) {
             p->registerEnemy(&enemies[i]);
         }
 
-        ParticleFactory particleFactory;
+        TempClass<Player, Enemy> t1(*p, enemies[0]);
+        t1.display();
+        int a=1, b=2;
+        TempClass<int, int> t2(a, b);
+        t2.display();
+        std::cout<<t2.varFunc(a, b)<<"\n";
 
         while (window.isOpen()) {
             while (const std::optional event = window.pollEvent())
@@ -129,7 +136,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 p->coordinates=sf::Vector2f(p->coordinates.x+p->velocity.x, p->coordinates.y+p->velocity.y);
                 checkpointPos.x-=p->getVelocity().x;
                 checkpointPos.y-=p->getVelocity().y;
-                std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<p->coordinates.x<<"\nY: "<<p->coordinates.y<<std::endl;
+                //std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<p->coordinates.x<<"\nY: "<<p->coordinates.y<<std::endl;
                 if (p->coordinates.x>roomSize.x || p->coordinates.x<(-1)*roomSize.x || p->coordinates.y>roomSize.y || p->coordinates.y<(-1)*roomSize.y) {
                     throw PlayerOutOfBoundsException(*p, p->getPosition());
                 }

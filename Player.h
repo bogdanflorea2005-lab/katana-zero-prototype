@@ -62,7 +62,19 @@ public:
     void removeEnemy(Enemy *enemy);     //  <-- Observer pattern
     void notifyEnemies();               //
 
+    template<typename T3>
+    static T3 doSth(T3 &x) {
+        ++x;
+        return x;
+    }
+
     friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
+
+    friend std::ostream& operator<<(std::ostream& os, const Player& p) {
+        std::cout<<p.coordinates.x<<" "<<p.coordinates.y<<"\n";
+        return os;
+
+    }
 
     friend class Enemy;
     friend class Camera;

@@ -85,6 +85,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Particle.h
         ParticleFactory.cpp
         ParticleFactory.h
+        TempClass.cpp
+        TempClass.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

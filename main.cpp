@@ -11,6 +11,7 @@
 #include "Tile.h"
 
 #include "RoomIDException.h"
+#include "TempClass.h"
 #include "TextureLoadingException.h"
 
 
@@ -41,6 +42,16 @@ void changeRooms(Room& oldRoom, const std::string& newRoomId){\n
     playAnimation("enterRoom", [orientation])\n
     }
 **/
+
+template <typename T1> void freeTempFunc(T1& a, T1& b) {
+    std::cout<<"template func outside of template class\n";
+    if (a<b) {
+        a+=b;
+    }else {
+        b+=a;
+    }
+
+}
 
 int Player::enemiesKilled=0;
 

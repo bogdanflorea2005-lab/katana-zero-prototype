@@ -41,6 +41,12 @@ public:
 
     Enemy &operator=(Enemy* enemy);
 
+    friend std::ostream& operator<<(std::ostream& os, const Enemy& p) {
+        std::cout<<p.isDead<<"\n";
+        return os;
+
+    }
+
     friend class Room;
     friend class Player;
 
