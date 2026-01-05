@@ -115,10 +115,10 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             p->registerEnemy(&enemies[i]);
         }
 
-        TempClass<Player, Enemy> t1(*p, enemies[0]);
+        TempClass t1(*p, enemies[0]);
         t1.display();
         int a=1, b=2;
-        TempClass<int, int> t2(a, b);
+        TempClass t2(a, b);
         t2.display();
         std::cout<<t2.varFunc(a, b)<<"\n";
 
