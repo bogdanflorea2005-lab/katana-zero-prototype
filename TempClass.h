@@ -4,7 +4,6 @@
 
 #ifndef OOP_TEMPCLASS_H
 #define OOP_TEMPCLASS_H
-#include <cstdio>
 #include <iostream>
 
 
@@ -26,7 +25,7 @@ public:
         std::cout<<"This would be so useful in a database!\n";
     }
 
-    T1 varFunc(T1 x, T1 y) {
+static T1 varFunc(T1 x, T1 y) {
         return x+y;
     }
 

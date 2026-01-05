@@ -26,20 +26,17 @@ private:
 
 public:
     Enemy()=default;
-    ~Enemy() {
-        // std::cout<<"deleted an enemy\n";
-    }
 
     Enemy(const std::string &filePath, float x, float y);
 
     void seekPlayer(sf::Vector2f playerCoords); //<-- update() for Observer pattern
 
-    void drawEnemy(sf::RenderWindow &window);
+    void drawEnemy(sf::RenderWindow &window) const;
 
     friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
 
 
-    Enemy &operator=(Enemy* enemy);
+    Enemy &operator=(const Enemy* enemy);
 
     friend std::ostream& operator<<(std::ostream& os, const Enemy& p) {
         std::cout<<p.isDead<<"\n";

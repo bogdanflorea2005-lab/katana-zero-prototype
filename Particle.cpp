@@ -4,13 +4,12 @@
 
 #include "Particle.h"
 #include <iostream>
-#include <unordered_map>
 
 #include "TextureLoadingException.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 
-Particle::Particle(const std::string texPath) {
+Particle::Particle(const std::string &texPath) {
     try {
         if (!m_texture.loadFromFile(texPath)) {
             TextureLoadingException ex(texPath);
@@ -28,7 +27,7 @@ Particle::Particle(const std::string texPath) {
     }
 }
 
-void Particle::draw(sf::Vector2f coords, sf::RenderWindow& window) {
+void Particle::draw(const sf::Vector2f coords, sf::RenderWindow& window) const {
     sf::Sprite sprite(m_texture);
     sprite.setPosition(coords);
     window.draw(sprite);

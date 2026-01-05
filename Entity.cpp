@@ -3,9 +3,6 @@
 //
 
 #include "Entity.h"
-
-#include <iostream>
-
 #include "Tile.h"
 
 void Entity::moveLeft() {}
@@ -38,7 +35,7 @@ void Entity::attack() {
     //will add sth once I make a "Projectile class"
 }
 
-bool Entity::isTouchingLeft(Tile t) const {
+bool Entity::isTouchingLeft(const Tile &t) const {
     if (velocity.x>0) {
         if (position.x+texSize.x/2+velocity.x>t.position.x-t.texSize.x/2 && position.x<t.position.x-t.texSize.x/2 && (position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2)) {
             return true;
@@ -47,7 +44,7 @@ bool Entity::isTouchingLeft(Tile t) const {
     return false;
 }
 
-bool Entity::isTouchingRight(Tile t) const {
+bool Entity::isTouchingRight(const Tile &t) const {
     if (velocity.x<0) {
         if (position.x-texSize.x/2+velocity.x<t.position.x+t.texSize.x/2 && position.x>t.position.x+t.texSize.x/2 && (position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2)) {
             return true;
@@ -56,7 +53,7 @@ bool Entity::isTouchingRight(Tile t) const {
     return false;
 }
 
-bool Entity::isTouchingTop(Tile t) const {
+bool Entity::isTouchingTop(const Tile &t) const {
     if (velocity.y<0) {
         if (position.y>t.position.y+t.texSize.y/2 && position.y-texSize.y/2+velocity.y<t.position.y+t.texSize.y/2 && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)) {
             return true;
@@ -65,7 +62,7 @@ bool Entity::isTouchingTop(Tile t) const {
     return false;
 }
 
-bool Entity::isTouchingBottom(Tile t) const {
+bool Entity::isTouchingBottom(const Tile &t) const {
     if (velocity.y>=0) {
         if (position.y+texSize.y/2+velocity.y>t.position.y-t.texSize.y/2 && position.y<t.position.y-t.texSize.y/2
             && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)){
@@ -75,7 +72,7 @@ bool Entity::isTouchingBottom(Tile t) const {
     return false;
 }
 
-void Entity::checkCollision(Tile& t) {
+void Entity::checkCollision(const Tile& t) {
     if(position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2) {
         if (isTouchingLeft(t)) {
             position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);

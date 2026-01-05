@@ -3,5 +3,3 @@
 //
 
 #include "ParticleFactory.h"
-#include <iostream>
-#include <unordered_map>

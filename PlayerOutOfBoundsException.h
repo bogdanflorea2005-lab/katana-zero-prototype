@@ -6,17 +6,16 @@
 #define OOP_PLATEROUTOFBOUNDSEXCEPTION_H
 
 #include <iostream>
-#include <stdexcept>
 
 #include "Player.h"
 
 
-class PlayerOutOfBoundsException: public std::exception {
+class PlayerOutOfBoundsException final : public std::exception {
 public:
-    PlayerOutOfBoundsException(Player& p, sf::Vector2f position) {
+    PlayerOutOfBoundsException() {
         std::cerr << "\nYou managed to get out of bounds. Sorry about that...\n";
     } ;
 };
 
 
-#endif //OOP_OUTOFBOUNDSEXCEPTION_H
+#endif //OOP_PLATEROUTOFBOUNDSEXCEPTION_H

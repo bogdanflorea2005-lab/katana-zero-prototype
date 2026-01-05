@@ -5,7 +5,7 @@
 #ifndef OOP_PARTICLEFACTORY_H
 #define OOP_PARTICLEFACTORY_H
 
-#include <iostream>
+
 #include <unordered_map>
 
 #include "Particle.h"
@@ -17,8 +17,8 @@ class ParticleFactory {
 private:
     std::unordered_map<std::string, Particle*> m_particles;
 public:
-    Particle* getParticle(std::string key) {
-        if (m_particles.find(key)==m_particles.end()) {
+    Particle* getParticle(const std::string &key) {
+        if (!m_particles.contains(key)) {
             m_particles[key]=new Particle(key);
         }
         return m_particles[key];

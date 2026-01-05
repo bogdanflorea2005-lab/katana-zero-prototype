@@ -8,7 +8,7 @@
 
 class TextureLoadingException;
 
-Tile &Tile::operator=(Tile *tile) {
+Tile &Tile::operator=(const Tile *tile) {
     this->position=sf::Vector2f(tile->position.x, tile->position.y);
     this->texture=tile->texture;
     this->texSize=tile->texture.getSize();
@@ -28,9 +28,8 @@ Tile::Tile(const std::string& filePath, float x, float y, int tileID){
         position.y = y;
         this->tileID=tileID;
 
-    }catch (TextureLoadingException& texErr) {
+    }catch ([[maybe_unused]] TextureLoadingException &texErr) {
         try {
-
             if (!texture.loadFromFile("Textures/Lbozo.png")) {
                 throw TextureLoadingException("Textures/Lbozo.png");
             }
@@ -39,7 +38,7 @@ Tile::Tile(const std::string& filePath, float x, float y, int tileID){
             position.y = y;
             this->tileID=tileID;
 
-        }catch (TextureLoadingException& severeTexErr) {
+        }catch ([[maybe_unused]] TextureLoadingException& severeTexErr) {
             std::cerr<<"error image has an error :/\n";
         }
     }
@@ -62,7 +61,7 @@ Tile::Tile(const Tile &t, float x, float y, int tileID) {
     this->tileID=tileID;
 }
 
-void Tile::drawTile(sf::RenderWindow &window) {
+void Tile::drawTile(sf::RenderWindow &window) const {
     sf::Sprite sprite(texture);
     sprite.setOrigin(sf::Vector2f(texSize.x/2,texSize.y/2));
     sprite.setPosition(sf::Vector2f(position.x,position.y));

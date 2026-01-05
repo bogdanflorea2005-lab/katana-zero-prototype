@@ -4,11 +4,9 @@
 
 #ifndef OOP_TILE_H
 #define OOP_TILE_H
-#include <iostream>
 
 #include "Entity.h"
 #include "Camera.h"
-#include "Enemy.h"
 
 
 class Player;
@@ -21,13 +19,9 @@ private:
 
 public:
 
-    Tile &operator=(Tile * tile);
+    Tile &operator=(const Tile * tile);
 
     Tile()=default;
-
-    ~Tile() {
-        // std::cout<<"deleted a tile\n";
-    };
 
     Tile(const std::string& filePath, float x, float y, int tileID);
 
@@ -35,7 +29,7 @@ public:
 
     Tile(const Tile& t, float x, float y, int tileID);
 
-    void drawTile(sf::RenderWindow& window);
+    void drawTile(sf::RenderWindow& window) const;
 
 
     friend std::ostream& operator<<(std::ostream& os, const Tile& t) {

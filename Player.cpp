@@ -13,11 +13,11 @@ void Player::setPosition(sf::Vector2f pos) {
     position.y=pos.y;
 }
 
-sf::Vector2f Player::getPosition() {
+sf::Vector2f Player::getPosition() const {
     return sf::Vector2f(position.x, position.y);
 }
 
-sf::Vector2f Player::getVelocity() {
+sf::Vector2f Player::getVelocity() const {
     // std::cout<<"X: "<<velocity.x<<std::endl;
     // std::cout<<"Y: "<<velocity.y<<std::endl;
     return sf::Vector2f(velocity.x, velocity.y);
@@ -100,7 +100,7 @@ Player::Player(const std::string &filePath, float x, float y) {
 
 }
 
-void Player::drawPlayer(sf::RenderWindow &window) {
+void Player::drawPlayer(sf::RenderWindow &window) const {
     sf::Sprite sprite(texture);
     sprite.setOrigin(sf::Vector2f(texSize.x/2,texSize.y/2));
     sprite.setPosition(sf::Vector2f(position.x,position.y));
@@ -134,7 +134,7 @@ void Player::movement() {
     notifyEnemies();
 }
 
-Player & Player::operator=(Player *player) {
+Player & Player::operator=(const Player *player) {
     position.x=player->position.x;
     position.y=player->position.y;
     isGrounded=player->isGrounded;
@@ -155,10 +155,10 @@ void Player::registerEnemy(Enemy* enemy) {
 }
 
 void Player::removeEnemy(Enemy* enemy) {
-    enemies.erase(std::remove(enemies.begin(), enemies.end(), enemy), enemies.end());
+    std::erase(enemies, enemy);
 }
 
-void Player::notifyEnemies() {
+void Player::notifyEnemies() const {
     for (Enemy* enemy:enemies) {
         enemy->seekPlayer(coordinates);
     }

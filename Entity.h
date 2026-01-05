@@ -4,11 +4,9 @@
 
 #ifndef OOP_ENTITY_H
 #define OOP_ENTITY_H
-#include <iostream>
 
-#include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
+
 
 
 class Tile;
@@ -34,10 +32,10 @@ protected:
 
     virtual void attack();
 
-    bool isTouchingLeft(Tile t) const;
-    bool isTouchingRight(Tile t) const;
-    bool isTouchingTop(Tile t) const;
-    bool isTouchingBottom(Tile t) const;
+    bool isTouchingLeft(const Tile &t) const;
+    bool isTouchingRight(const Tile &t) const;
+    bool isTouchingTop(const Tile &t) const;
+    bool isTouchingBottom(const Tile &t) const;
 public:
     virtual ~Entity() {
         // std::cout<<"deleted an entity\n";
@@ -48,7 +46,7 @@ public:
     void camMoveUp(float velo);
     void camMoveDown(float velo);
 
-    void checkCollision(Tile& t);
+    void checkCollision(const Tile& t);
     friend class Enemy;
     friend class Camera;
 };

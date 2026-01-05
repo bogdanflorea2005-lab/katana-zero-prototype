@@ -7,12 +7,12 @@
 #include <iostream>
 
 #include "Entity.h"
-#include "Camera.h"
+
 #include "Enemy.h"
-#include "Tile.h"
+
 #include "SFML/Graphics.hpp"
 #include <vector>
-#include <algorithm>
+
 
 
 class Player: public Entity {
@@ -33,8 +33,8 @@ private:
     void jump() override;
 
     void setPosition(sf::Vector2f pos);
-    sf::Vector2f getPosition();
-    sf::Vector2f getVelocity();
+    sf::Vector2f getPosition() const;
+    sf::Vector2f getVelocity() const;
 
     void setCurrentRoom(const std::string& roomID);
     std::string getCurrentRoom();
@@ -50,17 +50,17 @@ public:
         return isPlayerDead;
     }*/
 
-    void drawPlayer(sf::RenderWindow& window);
+    void drawPlayer(sf::RenderWindow& window) const;
 
     void movement();
 
-    Player &operator=(Player * player);
+    Player &operator=(const Player * player);
 
     static void tempAttack(Enemy& e);
 
     void registerEnemy(Enemy *enemy);   //
     void removeEnemy(Enemy *enemy);     //  <-- Observer pattern
-    void notifyEnemies();               //
+    void notifyEnemies() const;               //
 
     template<typename T3>
     static T3 doSth(T3 &x) {

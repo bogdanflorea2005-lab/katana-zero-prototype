@@ -24,7 +24,7 @@ private:
     // Tile tiles[5];
     // Enemy enemies[2];
 
-    bool hasError=0;
+    bool hasError=false;
 
 public:
     ~Room() {

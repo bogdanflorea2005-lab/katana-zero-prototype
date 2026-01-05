@@ -57,7 +57,21 @@ int Player::enemiesKilled=0;
 
 void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
     sf::Texture texture;
-    texture.loadFromFile(imagePath);
+    try {
+        if (!texture.loadFromFile(imagePath)) {
+            throw TextureLoadingException(imagePath);
+        }
+    }catch (TextureLoadingException texEx) {
+        try {
+            if (!texture.loadFromFile("Textures/Lbozo.png")) {
+                throw TextureLoadingException("Textures/Lbozo.png");
+            }
+
+        }catch (TextureLoadingException& severeTexErr) {
+            std::cerr<<"error image has an error :/\n";
+        }
+    }
+
     sf::Sprite sprite(texture);
     sprite.setOrigin(sf::Vector2f(texture.getSize().x/2, texture.getSize().y/2));
     sprite.setPosition(sf::Vector2f(w.getSize().x / 2, w.getSize().y / 2));

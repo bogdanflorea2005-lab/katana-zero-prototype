@@ -8,13 +8,12 @@
 
 #include "Enemy.h"
 #include "Player.h"
-#include "Tile.h"
 
 Camera::Camera(sf::Vector2f origin) {
     this->origin=origin;
 }
 
-void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
+/*void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
     sf::Texture texture;
     texture.loadFromFile(texFile);
     sf::Sprite sprite(texture);
@@ -23,13 +22,13 @@ void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
     //sprite.setScale(sf::Vector2f(1, 1));
     window.draw(sprite);
     //std::cout<<"x: "<<origin.x<<"y: "<<origin.y<<std::endl;
-}
+}*/
 
 void Camera::setOrigin(const sf::Vector2f &v) {
     origin=v;
 }
 
-bool Camera::isTouchingUpper(Player &p) const {
+bool Camera::isTouchingUpper(const Player &p) const {
     if (p.velocity.y<0) {
         if (p.position.y-p.texSize.y/2+p.velocity.y<origin.y-size.y/2) {
             return true;
@@ -38,7 +37,7 @@ bool Camera::isTouchingUpper(Player &p) const {
     return false;
 }
 
-bool Camera::isTouchingLower(Player &p) const {
+bool Camera::isTouchingLower(const Player &p) const {
     if (p.velocity.y>0) {
         if (p.position.y+p.texSize.y/2+p.velocity.y>origin.y+size.y/2) {
             return true;
@@ -47,7 +46,7 @@ bool Camera::isTouchingLower(Player &p) const {
     return false;
 }
 
-bool Camera::isTouchingLeft(Player &p) const {
+bool Camera::isTouchingLeft(const Player &p) const {
     if (p.velocity.x<0) {
         if (p.position.x-p.texSize.x/2+p.velocity.x<origin.x-size.x/2) {
             return true;
@@ -56,7 +55,7 @@ bool Camera::isTouchingLeft(Player &p) const {
     return false;
 }
 
-bool Camera::isTouchingRight(Player &p) const {
+bool Camera::isTouchingRight(const Player &p) const {
     if (p.velocity.x>0) {
         if (p.position.x+p.texSize.x/2+p.velocity.x>origin.x+size.x/2) {
             return true;
@@ -105,7 +104,7 @@ void Camera::playerReachedBoundary(Player &p, Entity &e) const {
     }
 }
 
-void Camera::moveEntityWhenCentering(const Player &p, Entity& e) {
+void Camera::moveEntityWhenCentering(const Player &p, Entity& e) const {
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
         e.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
@@ -117,7 +116,7 @@ void Camera::moveEntityWhenCentering(const Player &p, Entity& e) {
 
 
 
-void Camera::centerPlayer(Player &p) {
+void Camera::centerPlayer(Player &p) const {
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
         p.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));

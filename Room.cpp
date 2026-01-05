@@ -6,7 +6,6 @@
 #include "Camera.h"
 #include "Player.h"
 
-#include "error.h"
 #include "ParticleFactory.h"
 #include "PlayerOutOfBoundsException.h"
 #include "RoomIDException.h"
@@ -79,8 +78,8 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
 void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
     if (hasError) {
         std::string errFile="Textures/Mihaita-Dragan.png";
-        sf::Texture err;
         try {
+            sf::Texture err;
             if (!err.loadFromFile(errFile)) {
                 TextureLoadingException texErr(errFile);
                 throw texErr;
@@ -138,7 +137,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 checkpointPos.y-=p->getVelocity().y;
                 //std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<p->coordinates.x<<"\nY: "<<p->coordinates.y<<std::endl;
                 if (p->coordinates.x>roomSize.x || p->coordinates.x<(-1)*roomSize.x || p->coordinates.y>roomSize.y || p->coordinates.y<(-1)*roomSize.y) {
-                    throw PlayerOutOfBoundsException(*p, p->getPosition());
+                    throw PlayerOutOfBoundsException();
                 }
             }catch (PlayerOutOfBoundsException boundErr) {
                 /*
@@ -158,7 +157,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 }
             }
 
-            camera.drawCambox(window, "Textures/CameraSize.png");
+            //camera.drawCambox(window, "Textures/CameraSize.png");
             p->drawPlayer(window);
             p->movement();
 

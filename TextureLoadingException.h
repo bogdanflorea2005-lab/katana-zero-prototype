@@ -12,7 +12,7 @@
 
 class TextureLoadingException: public std::exception {
 public:
-    TextureLoadingException(std::string filePath) {
+    TextureLoadingException(const std::string &filePath) {
         std::cerr<<"ERROR LOADING TEXTURE FROM FILE: "<<filePath<<std::endl;
     } ;
 };
