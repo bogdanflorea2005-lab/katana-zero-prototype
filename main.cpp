@@ -1,17 +1,13 @@
 #include <iostream>
-#include <array>
+
 #include <SFML/Graphics.hpp>
-#include <memory.h>
+
 
 #include "Camera.h"
-#include "Enemy.h"
+
 #include "Player.h"
 #include "Room.h"
-#include "PlayerOutOfBoundsException.h"
-#include "Tile.h"
 
-#include "RoomIDException.h"
-#include "TempClass.h"
 #include "TextureLoadingException.h"
 
 
@@ -67,7 +63,7 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
                 throw TextureLoadingException("Textures/Lbozo.png");
             }
 
-        }catch (TextureLoadingException& severeTexErr) {
+        }catch ([[maybe_unused]] TextureLoadingException& severeTexErr) {
             std::cerr<<"error image has an error :/\n";
         }
     }
