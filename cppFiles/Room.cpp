@@ -35,9 +35,8 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
         if (roomID == "test") {
             Player::enemiesKilled=0;
             //Player::isPlayerDead=false;
-            tileNum=5;
-            enemyNum=2;
             particleNum=1;
+            entityNum=7;
             roomSize=sf::Vector2f(window.getSize().x, window.getSize().y);
             roomCentre=sf::Vector2f(window.getSize().x/2, window.getSize().y/2);
             checkpointPos=roomCentre;
@@ -45,11 +44,15 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             std::string tilePath2 ="Textures/placeholderTile2.png";
             std::string enemyPath = "Textures/placeholderEnemy.png";
             particleKeys[0]="Textures/Particle.png";
-            tiles[0]=new Tile(tilePath, 300, 500, 1);
-            tiles[1]=new Tile(tiles[0], 1100, 450, 2);
-            tiles[2]=new Tile(tilePath2, 450, 1050, 3);
-            tiles[3]=new Tile(tiles[2], 450+555, 1050, 4);
-            tiles[4]=new Tile(tiles[3], 450+555+555, 850, 5);
+
+            tileStartPos=0;
+            entities.push_back(std::make_shared<Tile>(tilePath, 300, 500, 1));
+            entities.push_back(std::make_shared<Tile>(tilePath, 1100, 450, 2));
+            entities.push_back(std::make_shared<Tile>(tilePath2, 450, 1050, 3));
+            entities.push_back(std::make_shared<Tile>(tilePath2, 450+555, 1050, 4));
+            entities.push_back(std::make_shared<Tile>(tilePath2, 450+555+555, 850, 5));
+            tileEndPos=5;
+            enemyStartPos=5;
             {
                 /*
                 Ok, so, I don't know why, but doing sth like this makes the enemies work, but enemies[i]=new Enemy(data) makes them noclip.
@@ -59,14 +62,13 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
                 */
                 Enemy e1(enemyPath, 1500, 200);
                 Enemy e2(enemyPath, 300, 150);
-                enemies[0]=e1;
-                enemies[1]=e2;
+                entities.push_back(std::make_shared<Enemy>(e1));
+                entities.push_back(std::make_shared<Enemy>(e2));
             }
+            enemyEndPos=7;
 
         }else {
             RoomIDException err(roomID);
-            tileNum=0;
-            enemyNum=0;
             throw err;
         }
     }catch (RoomIDException err) {
@@ -108,12 +110,13 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         p->setPosition(roomCentre);
         camera.setOrigin(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
 
-        std::cout<<"tileNum: "<<tileNum<<std::endl<<"enemyNum: "<<enemyNum<<"\n";
         p->coordinates=roomCentre;
         ParticleFactory particleFactory;
-        for (int i=0; i<enemyNum; i++) {
-            p->registerEnemy(&enemies[i]);
+        for (int i=enemyStartPos; i<enemyEndPos; i++) {
+            p->registerEnemy(dynamic_cast<Enemy*>(entities.at(i).get()));
         }
+
+
 
         TempClass t1(*p, enemies[0]);
         t1.display();
@@ -161,30 +164,53 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             p->drawPlayer(window);
             p->movement();
 
-            for (int i=0; i<tileNum; i++) {
-                p->checkCollision(tiles[i]);
+            /*for (std::shared_ptr entity : entities) {
+                if (auto tile=dynamic_cast<Tile*>(entity.get())) {
+                    p->checkCollision(*tile);
+                    tile->drawTile(window);
+                    camera.playerReachedBoundary(*p, *tile);
+                    camera.moveEntityWhenCentering(*p, *tile);
+                    for (int i=enemyStartPos; i<enemyEndPos; i++) {
+                        entities.at(i).get()->checkCollision(*tile);
+                    }
+                }else if (auto enemy=dynamic_cast<Enemy*>(entity.get())) {
+                    p->tempAttack(*enemy);
+                    enemy->drawEnemy(window);
+                    camera.playerReachedBoundary(*p, *enemy);
+                    camera.moveEntityWhenCentering(*p, *enemy);
+                }
+            }*/
+
+
+            for (int i=tileStartPos; i<tileEndPos; i++) {
+                auto tile=dynamic_cast<Tile*>(entities.at(i).get());
+                p->checkCollision(*tile);
             }
 
-            for (int i=0; i<tileNum; i++) {
-                tiles[i].drawTile(window);
-                camera.playerReachedBoundary(*p, tiles[i]);
-                camera.moveEntityWhenCentering(*p, tiles[i]);
-                for (int j=0; j<enemyNum; j++) {
-                    enemies[j].checkCollision(tiles[i]);
+            for (int i=tileStartPos; i<tileEndPos; i++) {
+                auto tile=dynamic_cast<Tile*>(entities.at(i).get());
+                tile->drawTile(window);
+                camera.playerReachedBoundary(*p, *tile);
+                camera.moveEntityWhenCentering(*p, *tile);
+                for (int j=enemyStartPos; j<enemyEndPos; j++) {
+                    auto enemy=dynamic_cast<Enemy*>(entities.at(j).get());
+                    enemy->checkCollision(*tile);
                 }
             }
 
-            for (int i=0; i<enemyNum; i++) {
-                Player::tempAttack(enemies[i]);
-                enemies[i].drawEnemy(window);
-                camera.moveEntityWhenCentering(*p, enemies[i]);
-                camera.playerReachedBoundary(*p, enemies[i]);
+            for (int i=enemyStartPos; i<enemyEndPos; i++) {
+                auto enemy=dynamic_cast<Enemy*>(entities.at(i).get());
+                Player::tempAttack(*enemy);
+                enemy->drawEnemy(window);
+                camera.moveEntityWhenCentering(*p, *enemy);
+                camera.playerReachedBoundary(*p, *enemy);
             }
             camera.centerPlayer(*p);
             window.display();
         }
-        for (int i=0; i<enemyNum; i++) {
-            p->removeEnemy(&enemies[i]);
+        for (int i=enemyStartPos; i<enemyEndPos; i++) {
+            auto enemy=dynamic_cast<Enemy*>(entities.at(i).get());
+            p->removeEnemy(enemy);
         }
     }
 }
