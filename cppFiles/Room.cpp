@@ -117,10 +117,10 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         }
 
 
-
-        TempClass t1(*p, enemies[0]);
-        t1.display();
         int a=1, b=2;
+        TempClass t1(*p, a);
+        t1.display();
+
         TempClass t2(a, b);
         t2.display();
         std::cout<<t2.varFunc(a, b)<<"\n";
@@ -147,10 +147,10 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 I will have to either revisit this, or re-write the whole project from scratch, replacing all float variables with integers, and while I'm at it,
                 maybe revise tile collision to use a*x+b=y functions, instead of 4 points on a plane for tiles.
                 */
-                p->setPosition(sf::Vector2f(tiles[3].position.x, tiles[3].position.y+p->texture.getSize().y/2));
+                p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
                 p->velocity=sf::Vector2f(0, 0);
-                p->coordinates=sf::Vector2f(tiles[3].position.x, tiles[3].position.y+p->texture.getSize().y/2);
+                p->coordinates=checkpointPos;
             }
 
 
