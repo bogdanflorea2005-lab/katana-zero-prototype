@@ -2,9 +2,9 @@
 // Created by Bogdan on 11/7/2025.
 //
 
-#include "Tile.h"
+#include "../Headers/Tile.h"
 
-#include "TextureLoadingException.h"
+#include "../Headers/TextureLoadingException.h"
 
 class TextureLoadingException;
 

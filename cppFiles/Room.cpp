@@ -2,15 +2,15 @@
 // Created by Bogdan on 12/1/2025.
 //
 
-#include "Room.h"
-#include "Camera.h"
-#include "Player.h"
+#include "../Headers/Room.h"
+#include "../Headers/Camera.h"
+#include "../Headers/Player.h"
 
-#include "ParticleFactory.h"
-#include "PlayerOutOfBoundsException.h"
-#include "RoomIDException.h"
-#include "TempClass.h"
-#include "TextureLoadingException.h"
+#include "../Headers/ParticleFactory.h"
+#include "../Headers/PlayerOutOfBoundsException.h"
+#include "../Headers/RoomIDException.h"
+#include "../Headers/TempClass.h"
+#include "../Headers/TextureLoadingException.h"
 #include "SFML/Graphics.hpp"
 
 Room::Room(const std::string& roomID, sf::RenderWindow& window) {

@@ -3,12 +3,12 @@
 #include <SFML/Graphics.hpp>
 
 
-#include "Camera.h"
+#include "Headers/Camera.h"
 
-#include "Player.h"
-#include "Room.h"
+#include "Headers/Player.h"
+#include "Headers/Room.h"
 
-#include "TextureLoadingException.h"
+#include "Headers/TextureLoadingException.h"
 
 
 /**

@@ -63,30 +63,30 @@ FetchContent_MakeAvailable(SFML)
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${MAIN_EXECUTABLE_NAME}
     main.cpp
-        Entity.cpp
-        Entity.h
-        Player.cpp
-        Player.h
-        Enemy.cpp
-        Enemy.h
-        Tile.cpp
-        Tile.h
-        Camera.cpp
-        Camera.h
-        RoomIDException.cpp
-        RoomIDException.h
-        TextureLoadingException.cpp
-        TextureLoadingException.h
-        PlayerOutOfBoundsException.cpp
-        PlayerOutOfBoundsException.h
-        Room.cpp
-        Room.h
-        Particle.cpp
-        Particle.h
-        ParticleFactory.cpp
-        ParticleFactory.h
-        TempClass.cpp
-        TempClass.h
+        cppFiles/Entity.cpp
+        Headers/Entity.h
+        cppFiles/Player.cpp
+        Headers/Player.h
+        cppFiles/Enemy.cpp
+        Headers/Enemy.h
+        cppFiles/Tile.cpp
+        Headers/Tile.h
+        cppFiles/Camera.cpp
+        Headers/Camera.h
+        cppFiles/RoomIDException.cpp
+        Headers/RoomIDException.h
+        cppFiles/TextureLoadingException.cpp
+        Headers/TextureLoadingException.h
+        cppFiles/PlayerOutOfBoundsException.cpp
+        Headers/PlayerOutOfBoundsException.h
+        cppFiles/Room.cpp
+        Headers/Room.h
+        cppFiles/Particle.cpp
+        Headers/Particle.h
+        cppFiles/ParticleFactory.cpp
+        Headers/ParticleFactory.h
+        cppFiles/TempClass.cpp
+        Headers/TempClass.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

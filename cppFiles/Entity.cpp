@@ -2,8 +2,8 @@
 // Created by Bogdan on 11/7/2025.
 //
 
-#include "Entity.h"
-#include "Tile.h"
+#include "../Headers/Entity.h"
+#include "../Headers/Tile.h"
 
 void Entity::moveLeft() {}
 

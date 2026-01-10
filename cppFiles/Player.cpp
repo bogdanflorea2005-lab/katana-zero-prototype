@@ -2,11 +2,11 @@
 // Created by Bogdan on 11/7/2025.
 //
 
-#include "Player.h"
+#include "../Headers/Player.h"
 
 #include <iostream>
 
-#include "TextureLoadingException.h"
+#include "../Headers/TextureLoadingException.h"
 
 void Player::setPosition(sf::Vector2f pos) {
     position.x=pos.x;

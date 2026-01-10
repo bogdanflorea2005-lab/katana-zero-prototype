@@ -2,10 +2,10 @@
 // Created by Bogdan on 01-Jan-26.
 //
 
-#include "Particle.h"
+#include "../Headers/Particle.h"
 #include <iostream>
 
-#include "TextureLoadingException.h"
+#include "../Headers/TextureLoadingException.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 

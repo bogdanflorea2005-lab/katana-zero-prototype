@@ -2,10 +2,10 @@
 // Created by Bogdan on 11/7/2025.
 //
 
-#include "Enemy.h"
+#include "../Headers/Enemy.h"
 
-#include "Player.h"
-#include "TextureLoadingException.h"
+#include "../Headers/Player.h"
+#include "../Headers/TextureLoadingException.h"
 
 
 

@@ -2,12 +2,12 @@
 // Created by Bogdan on 11/17/2025.
 //
 
-#include "Camera.h"
+#include "../Headers/Camera.h"
 
 #include <iostream>
 
-#include "Enemy.h"
-#include "Player.h"
+#include "../Headers/Enemy.h"
+#include "../Headers/Player.h"
 
 Camera::Camera(sf::Vector2f origin) {
     this->origin=origin;
