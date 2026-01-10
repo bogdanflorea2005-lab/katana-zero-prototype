@@ -78,14 +78,8 @@ bool Camera::isYCentered(const Player &p) const {
     return true;
 }
 
-
-
-/**  /\
-     |    Can be combined since for() works in main
-    \/
-**/
 void Camera::playerReachedBoundary(Player &p, Entity &e) const {
-
+    //This function makes sure that the player stays within the camera boundary
     if (isTouchingUpper(p)) {
         e.camMoveUp(p.velocity.y);
         p.position.y=origin.y-size.y/2+p.texSize.y/2;
@@ -105,6 +99,7 @@ void Camera::playerReachedBoundary(Player &p, Entity &e) const {
 }
 
 void Camera::moveEntityWhenCentering(const Player &p, Entity& e) const {
+    //moves entities in order to keep their position relative to the player the same
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
         e.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
@@ -117,6 +112,7 @@ void Camera::moveEntityWhenCentering(const Player &p, Entity& e) const {
 
 
 void Camera::centerPlayer(Player &p) const {
+    //centers the player to the center of the screen
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
         p.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));

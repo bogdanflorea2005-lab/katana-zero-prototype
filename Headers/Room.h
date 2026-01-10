@@ -27,9 +27,14 @@ public:
     ~Room() {
         std::cout << "Room Destroyed" << std::endl;
     }
-
+    /*
+     * Room data is loaded through this constructor.
+     */
     explicit Room(const std::string &roomID, sf::RenderWindow &window);
 
+    /*
+     * This function displays tiles and enemies.
+     */
     void drawRoom(sf::RenderWindow& window, Player& player, Camera& camera);
 
 

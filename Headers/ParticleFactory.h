@@ -22,6 +22,7 @@ public:
             m_particles[key]=new Particle(key);
         }
         return m_particles[key];
+        //returns a string that represents a file path to a particle texture
     }
 
     friend class Room;

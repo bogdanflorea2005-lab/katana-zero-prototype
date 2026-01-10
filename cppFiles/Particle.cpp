@@ -28,6 +28,7 @@ Particle::Particle(const std::string &texPath) {
 }
 
 void Particle::draw(const sf::Vector2f coords, sf::RenderWindow& window) const {
+    //displays particle on screen
     sf::Sprite sprite(m_texture);
     sprite.setPosition(coords);
     window.draw(sprite);

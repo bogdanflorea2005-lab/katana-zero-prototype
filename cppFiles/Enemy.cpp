@@ -72,6 +72,7 @@ Enemy::Enemy(const std::string &filePath, float x, float y): Entity()  {
 }
 
 void Enemy::seekPlayer(sf::Vector2f playerCoords) {
+    //makes enemies go toward player
     if (!isDead) {
         gravity();
         if (const float distance = abs(playerCoords.x - this->position.x); position.x<playerCoords.x && distance >30) {
@@ -84,6 +85,7 @@ void Enemy::seekPlayer(sf::Vector2f playerCoords) {
 }
 
 void Enemy::drawEnemy(sf::RenderWindow &window) const {
+    //displays enemy on screen
     if (!isDead) {
         sf::Sprite sprite(texture);
         sprite.setTexture(texture);

@@ -62,6 +62,7 @@ Tile::Tile(const Tile &t, float x, float y, int tileID) {
 }
 
 void Tile::drawTile(sf::RenderWindow &window) const {
+    //draws tile on screen
     sf::Sprite sprite(texture);
     sprite.setOrigin(sf::Vector2f(texSize.x/2,texSize.y/2));
     sprite.setPosition(sf::Vector2f(position.x,position.y));

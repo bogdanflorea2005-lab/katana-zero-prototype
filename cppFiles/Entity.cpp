@@ -43,6 +43,7 @@ bool Entity::isTouchingLeft(const Tile &t) const {
     }
     return false;
 }
+//checks if other entities make contact with tile
 
 bool Entity::isTouchingRight(const Tile &t) const {
     if (velocity.x<0) {
@@ -52,6 +53,7 @@ bool Entity::isTouchingRight(const Tile &t) const {
     }
     return false;
 }
+//checks if other entities make contact with tile
 
 bool Entity::isTouchingTop(const Tile &t) const {
     if (velocity.y<0) {
@@ -61,6 +63,7 @@ bool Entity::isTouchingTop(const Tile &t) const {
     }
     return false;
 }
+//checks if other entities make contact with tile
 
 bool Entity::isTouchingBottom(const Tile &t) const {
     if (velocity.y>=0) {
@@ -71,8 +74,10 @@ bool Entity::isTouchingBottom(const Tile &t) const {
     }
     return false;
 }
+//checks if other entities make contact with tile
 
 void Entity::checkCollision(const Tile& t) {
+    //Makes sure that if an enemy or player is in contact with a tile, they don`t noclip into it
     if(position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2) {
         if (isTouchingLeft(t)) {
             position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);
@@ -94,8 +99,6 @@ void Entity::checkCollision(const Tile& t) {
         }else {
             isGrounded=false;
         }
-        // std::cout<<"isGrounded: "<<isGrounded<<std::endl<<"yVelo: "<<velocity.y<<std::endl<<"tileID: "<<t.tileID<<std::endl<<std::endl;
-        // std::cout<<"isTB: "<<isTouchingBottom(t)<<std::endl;
 
         if (isTouchingTop(t)) {
             position=sf::Vector2f(position.x, t.position.y+t.texSize.y/2+texSize.y/2);

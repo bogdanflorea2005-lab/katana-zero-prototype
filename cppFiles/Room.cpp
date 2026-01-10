@@ -34,7 +34,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
         //for now, enemiesKilled will be 0 on launch. After I figure out how to deal with save-states, it will be stored in there
         if (roomID == "test") {
             Player::enemiesKilled=0;
-            //Player::isPlayerDead=false;
+
             particleNum=1;
             entityNum=7;
             roomSize=sf::Vector2f(window.getSize().x, window.getSize().y);
@@ -44,6 +44,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             std::string tilePath2 ="Textures/placeholderTile2.png";
             std::string enemyPath = "Textures/placeholderEnemy.png";
             particleKeys[0]="Textures/Particle.png";
+            //initialized counters and texture paths.
 
             tileStartPos=0;
             entities.push_back(std::make_shared<Tile>(tilePath, 300, 500, 1));
@@ -52,6 +53,7 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             entities.push_back(std::make_shared<Tile>(tilePath2, 450+555, 1050, 4));
             entities.push_back(std::make_shared<Tile>(tilePath2, 450+555+555, 850, 5));
             tileEndPos=5;
+            //initialized tiles
             enemyStartPos=5;
             {
                 /*
@@ -66,13 +68,16 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
                 entities.push_back(std::make_shared<Enemy>(e2));
             }
             enemyEndPos=7;
+            //initialized enemies
 
         }else {
             RoomIDException err(roomID);
             throw err;
+            //error thrown in case of invalid roomID
         }
     }catch (RoomIDException err) {
         hasError=true;
+        //this gets used in drawRoom() to handle the roomID error.
     }
 
 }
@@ -106,16 +111,17 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         Entity *p1=&player;
         auto *p=dynamic_cast<Player*>(p1);
 
-        //p->setPosition(sf::Vector2f(-500, -500));
         p->setPosition(roomCentre);
         camera.setOrigin(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
 
         p->coordinates=roomCentre;
+        //initializing player data
         ParticleFactory particleFactory;
+
         for (int i=enemyStartPos; i<enemyEndPos; i++) {
             p->registerEnemy(dynamic_cast<Enemy*>(entities.at(i).get()));
         }
-
+        //registering enemies for player to send data to
 
         int a=1, b=2;
         TempClass t1(*p, a);
@@ -124,6 +130,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         TempClass t2(a, b);
         t2.display();
         std::cout<<t2.varFunc(a, b)<<"\n";
+        //template class use
 
         while (window.isOpen()) {
             while (const std::optional event = window.pollEvent())
@@ -144,8 +151,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 }
             }catch (PlayerOutOfBoundsException boundErr) {
                 /*
-                I will have to either revisit this, or re-write the whole project from scratch, replacing all float variables with integers, and while I'm at it,
-                maybe revise tile collision to use a*x+b=y functions, instead of 4 points on a plane for tiles.
+                Teleportation is inaccurate due to float inaccuracy
                 */
                 p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
@@ -159,42 +165,27 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                     particleFactory.getParticle(particleKeys[i])->draw(sf::Vector2f(rand()%1900, rand()%1000), window);
                 }
             }
+            //fills screen with particles
 
-            //camera.drawCambox(window, "Textures/CameraSize.png");
             p->drawPlayer(window);
             p->movement();
-
-            /*for (std::shared_ptr entity : entities) {
-                if (auto tile=dynamic_cast<Tile*>(entity.get())) {
-                    p->checkCollision(*tile);
-                    tile->drawTile(window);
-                    camera.playerReachedBoundary(*p, *tile);
-                    camera.moveEntityWhenCentering(*p, *tile);
-                    for (int i=enemyStartPos; i<enemyEndPos; i++) {
-                        entities.at(i).get()->checkCollision(*tile);
-                    }
-                }else if (auto enemy=dynamic_cast<Enemy*>(entity.get())) {
-                    p->tempAttack(*enemy);
-                    enemy->drawEnemy(window);
-                    camera.playerReachedBoundary(*p, *enemy);
-                    camera.moveEntityWhenCentering(*p, *enemy);
-                }
-            }*/
-
 
             for (int i=tileStartPos; i<tileEndPos; i++) {
                 auto tile=dynamic_cast<Tile*>(entities.at(i).get());
                 p->checkCollision(*tile);
             }
+            //checking tile collision for player
 
             for (int i=tileStartPos; i<tileEndPos; i++) {
                 auto tile=dynamic_cast<Tile*>(entities.at(i).get());
                 tile->drawTile(window);
                 camera.playerReachedBoundary(*p, *tile);
                 camera.moveEntityWhenCentering(*p, *tile);
+                //moving tiles when player interacts with camera
                 for (int j=enemyStartPos; j<enemyEndPos; j++) {
                     auto enemy=dynamic_cast<Enemy*>(entities.at(j).get());
                     enemy->checkCollision(*tile);
+                    //checking tile collision for enemies
                 }
             }
 
@@ -204,13 +195,16 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 enemy->drawEnemy(window);
                 camera.moveEntityWhenCentering(*p, *enemy);
                 camera.playerReachedBoundary(*p, *enemy);
+                //moving enemies when player interacts with camera
             }
             camera.centerPlayer(*p);
+            //centers player to center of screen
             window.display();
         }
         for (int i=enemyStartPos; i<enemyEndPos; i++) {
             auto enemy=dynamic_cast<Enemy*>(entities.at(i).get());
             p->removeEnemy(enemy);
+            //removes enemies from enemies vector in Player()
         }
     }
 }

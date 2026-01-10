@@ -109,9 +109,9 @@ void Player::drawPlayer(sf::RenderWindow &window) const {
 }
 
 void Player::movement() {
-
-    //std::cout<<"in Player.cpp/movement()\nyVelo: "<<velocity.y<<"\nisGrounded: "<<isGrounded<<std::endl;
+    //allows player to move on screen
     gravity();
+    // ^^ simulates gravity
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==0) {
         moveRight();
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==0) {
@@ -151,14 +151,17 @@ void Player::tempAttack(Enemy &e) {
 }
 
 void Player::registerEnemy(Enemy* enemy) {
+    //adds enemy to list of enemies to send info to
     enemies.push_back(enemy);
 }
 
 void Player::removeEnemy(Enemy* enemy) {
+    //removes enemy to list of enemies to send info to
     std::erase(enemies, enemy);
 }
 
 void Player::notifyEnemies() const {
+    //sends data about player, such as coordinates, to enemies
     for (Enemy* enemy:enemies) {
         enemy->seekPlayer(coordinates);
     }

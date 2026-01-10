@@ -52,6 +52,7 @@ public:
 
     void drawPlayer(sf::RenderWindow& window) const;
 
+    //function that allows player to move on screen
     void movement();
 
     Player &operator=(const Player * player);
@@ -60,7 +61,7 @@ public:
 
     void registerEnemy(Enemy *enemy);   //
     void removeEnemy(Enemy *enemy);     //  <-- Observer pattern
-    void notifyEnemies() const;               //
+    void notifyEnemies() const;         //
 
     template<typename T3>
     static T3 doSth(T3 &x) {
