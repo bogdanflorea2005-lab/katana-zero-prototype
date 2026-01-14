@@ -16,11 +16,8 @@
 
 
 class Player: public Entity {
-public:
-    static int enemiesKilled;
-    //static bool isPlayerDead;
-
 private:
+    static int enemiesKilled;
     int spaceTimer=0;
     std::string currentRoom;
     sf::Vector2f coordinates;
