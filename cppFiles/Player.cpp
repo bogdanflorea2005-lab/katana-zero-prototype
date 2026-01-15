@@ -73,7 +73,7 @@ void Player::jump() {
 }
 
 Player::Player(const std::string &filePath, float x, float y) {
-    // std::cout<<"creating a player\n\n";
+    //loads player data.
     try {
 
         if (!texture.loadFromFile(filePath)) {
@@ -101,6 +101,7 @@ Player::Player(const std::string &filePath, float x, float y) {
 }
 
 void Player::drawPlayer(sf::RenderWindow &window) const {
+    //displays palyer on screen
     sf::Sprite sprite(texture);
     sprite.setOrigin(sf::Vector2f(texSize.x/2,texSize.y/2));
     sprite.setPosition(sf::Vector2f(position.x,position.y));

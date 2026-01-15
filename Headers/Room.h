@@ -28,7 +28,7 @@ public:
         std::cout << "Room Destroyed" << std::endl;
     }
     /*
-     * Room data is loaded through this constructor.
+     * Room data is loaded through constructor.
      */
     explicit Room(const std::string &roomID, sf::RenderWindow &window);
 

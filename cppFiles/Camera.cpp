@@ -13,17 +13,6 @@ Camera::Camera(sf::Vector2f origin) {
     this->origin=origin;
 }
 
-/*void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
-    sf::Texture texture;
-    texture.loadFromFile(texFile);
-    sf::Sprite sprite(texture);
-    sprite.setOrigin(sf::Vector2f(texture.getSize().x/2, texture.getSize().y/2));
-    sprite.setPosition(sf::Vector2f(960, 540));
-    //sprite.setScale(sf::Vector2f(1, 1));
-    window.draw(sprite);
-    //std::cout<<"x: "<<origin.x<<"y: "<<origin.y<<std::endl;
-}*/
-
 void Camera::setOrigin(const sf::Vector2f &v) {
     origin=v;
 }
@@ -118,8 +107,6 @@ void Camera::centerPlayer(Player &p) const {
         p.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
     }
 
-    // std::cout<<"inCamera/centerPlayer\nisYCentered: "<<isYCentered(p)<<std::endl<<"yVelo: "<<(p.velocity.y>-2 && p.velocity.y<2)<<"\n";
-    // std::cout<<"\nif: "<<((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p))<<"\n";
     if ((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p)) {
         p.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
     }
