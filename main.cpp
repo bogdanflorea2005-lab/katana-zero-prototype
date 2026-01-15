@@ -11,34 +11,6 @@
 #include "Headers/TextureLoadingException.h"
 
 
-/**
-CHECK GAME MAKER'S TOOLKIT ON YT!!!!!!!!!!!!!!!!!!
-
-File format example for loading a room:
-
-Might not actually need a whole class for this, just a function that loads everything.
-1:
-File name is ID:
-[tileNum]\n
-[tileData1] [tileData2]...\n
-[enemyNum]\n
-[enemyData1] [enemyData2]...\n
-
-2:
-Simply add an if(roomId==ceva){[roomData]} for every room. IDK how good this is
-
-3:
-Maybe sth like this: https://www.reddit.com/r/gamemaker/comments/4dpi99/filling_a_room_with_objects_using_a_text_document/
-where every room has its own file (whose name will be the room's ID). This method also basically locks me to a grid, which is very limiting :\
-
-base idea for unloading an old room and loading a new one:\n
-void changeRooms(Room& oldRoom, const std::string& newRoomId){\n
-    playAnimation("leaveRoom", [orientation]);\n
-    oldRoom=new Room("newRoomId");\n
-    playAnimation("enterRoom", [orientation])\n
-    }
-**/
-
 template <typename T1> void freeTempFunc(T1& a, T1& b) {
     std::cout<<"template func outside of template class\n";
     if (a<b) {
