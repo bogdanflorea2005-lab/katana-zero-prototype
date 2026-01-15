@@ -16,22 +16,7 @@
 Room::Room(const std::string& roomID, sf::RenderWindow& window) {
     std::cout<<"creating a room\n\n";
     try {
-        /**
-     after I figure out how to make a decent file format for loading/saving room data, will use sth. like:
-     if(roomID == "id"){
-        tileNum=sthFromFile;
-        enemyNum=sthElseFromFile;
-        for(int i=0; i<tileNum; i++){
-            //read tile data for all tiles from file
-        }
-        for(int i=0; i<enemyNum; i++){
-            //read enemy data for all enemies from file
-        }
-     }
-     where the file name will also be the room's ID
-     **/
-
-        //for now, enemiesKilled will be 0 on launch. After I figure out how to deal with save-states, it will be stored in there
+            //for now, enemiesKilled will be 0 on launch. After I figure out how to deal with save-states, it will be stored in there
         if (roomID == "test") {
             Player::enemiesKilled=0;
 
@@ -56,12 +41,6 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
             //initialized tiles
             enemyStartPos=5;
             {
-                /*
-                Ok, so, I don't know why, but doing sth like this makes the enemies work, but enemies[i]=new Enemy(data) makes them noclip.
-                This means that I will have to fill my enemies[] vector through a locally declared Enemy, instead of re-instantiating them using 'new'.
-                That might be caused by a faulty implementation of op= override or cc override, though I don't know why or how that would affect tile collision,
-                especially when it works fine for tiles...
-                */
                 Enemy e1(enemyPath, 1500, 200);
                 Enemy e2(enemyPath, 300, 150);
                 entities.push_back(std::make_shared<Enemy>(e1));
@@ -151,7 +130,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 }
             }catch (PlayerOutOfBoundsException boundErr) {
                 /*
-                Teleportation is inaccurate due to float inaccuracy
+                Teleportation is inaccurate due to floating point inaccuracy
                 */
                 p->setPosition(checkpointPos);
                 checkpointPos=roomCentre;
@@ -164,17 +143,17 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 for (int i=0; i<particleNum; i++) {
                     particleFactory.getParticle(particleKeys[i])->draw(sf::Vector2f(rand()%1900, rand()%1000), window);
                 }
+                //fills screen with particles
             }
-            //fills screen with particles
 
             p->drawPlayer(window);
             p->movement();
 
             for (int i=tileStartPos; i<tileEndPos; i++) {
+                //checking tile collision for player
                 auto tile=dynamic_cast<Tile*>(entities.at(i).get());
                 p->checkCollision(*tile);
             }
-            //checking tile collision for player
 
             for (int i=tileStartPos; i<tileEndPos; i++) {
                 auto tile=dynamic_cast<Tile*>(entities.at(i).get());
@@ -198,7 +177,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
                 //moving enemies when player interacts with camera
             }
             camera.centerPlayer(*p);
-            //centers player to center of screen
+            //centers player to middle of screen
             window.display();
         }
         for (int i=enemyStartPos; i<enemyEndPos; i++) {
